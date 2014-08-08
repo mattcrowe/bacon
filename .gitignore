@@ -199,14 +199,17 @@ public/assets/**/css
 # CTags
 .tags*
 
-######################
-## Project-Specific
-######################
+#############
+## Ruby
+#############
 
-/bootstrap/compiled.php
-/vendor
-composer.phar
+# Ignore bundler config.
+/.bundle
 
-/public/media/
-/app/storage/views/
-/app/storage/sessions/
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
