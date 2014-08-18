@@ -1,30 +1,44 @@
-<%= link_to 'New client', new_client_path %>
-<div class="table-responsive">
-    <table class="table table-striped table-condensed table-hover">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Contact</th>
-            <th>Email</th>
-            <th>Rate</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
+<ol class="breadcrumb">
+    <li class="dropdown open">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clients <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="<%= clients_path %>"><i class="fa fa-list-ul"></i> List</a></li>
+            <li><a href="<%= new_client_path %>"><i class="fa fa-plus"></i> Add</a></li>
+        </ul>
+    </li>
+    <li class="no-crumb pull-right"><a class="btn btn-default btn-xs" href="<%= new_client_path %>"><i class="fa fa-plus"></i><span class="hidden-xs"> add</span></a></li>
+    <li class="no-crumb">&nbsp;</li>
+</ol>
 
-        <% @clients.each do |client| %>
-        <tr>
-            <td><%= client.id %></td>
-            <td><%= client.name %></td>
-            <td><%= client.contact %></td>
-            <td><%= client.email %></td>
-            <td><%= client.rate %></td>
-            <td><%= link_to 'Show', client_path(client) %></td>
-            <td><%= link_to 'Edit', edit_client_path(client) %></td>
-            <td><%= link_to 'Destroy', client_path(client),
-                method: :delete, data: { confirm: 'Are you sure?' } %>
-            </td>
-        </tr>
-        <% end %>
-    </table>
+<div style="padding:0 20px 20px;">
+    <div class="table-responsive">
+        <table class="table table-striped table-condensed table-hover">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Rate</th>
+                <th></th>
+                <th></th>
+            </tr>
+
+            <% @clients.each do |client| %>
+            <tr>
+                <td><%= client.id %></td>
+                <td><%= client.name %></td>
+                <td><%= client.contact %></td>
+                <td><%= client.email %></td>
+                <td><%= client.rate %></td>
+                <td>
+                    <a class="btn btn-default btn-xs" href="<%= client_path(client) %>"><i class="fa fa-square-o"></i><span class="hidden-xs"> OPEN</span></a>
+                </td>
+                <!--<td><%= link_to 'Edit', edit_client_path(client) %></td>-->
+                <td><%= link_to 'Destroy', client_path(client),
+                    method: :delete, data: { confirm: 'Are you sure?' } %>
+                </td>
+            </tr>
+            <% end %>
+        </table>
+    </div>
 </div>
