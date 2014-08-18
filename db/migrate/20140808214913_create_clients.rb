@@ -5,7 +5,6 @@ class CreateClients < ActiveRecord::Migration
       t.string :contact
       t.string :email
       t.decimal :rate
-
       t.timestamps
     end
   end

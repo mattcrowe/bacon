@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140808221646) do
+ActiveRecord::Schema.define(version: 20140818184930) do
 
   create_table "clients", force: true do |t|
     t.string   "name"
@@ -22,6 +22,26 @@ ActiveRecord::Schema.define(version: 20140808221646) do
     t.datetime "updated_at"
   end
 
+  create_table "entries", force: true do |t|
+    t.integer  "task_id"
+    t.decimal  "hours"
+    t.decimal  "rate"
+    t.datetime "done_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "entries", ["task_id"], name: "index_entries_on_task_id"
+
+  create_table "invoices", force: true do |t|
+    t.integer  "client_id"
+    t.datetime "paid_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invoices", ["client_id"], name: "index_invoices_on_client_id"
+
   create_table "projects", force: true do |t|
     t.string   "name"
     t.integer  "client_id"
@@ -30,5 +50,16 @@ ActiveRecord::Schema.define(version: 20140808221646) do
   end
 
   add_index "projects", ["client_id"], name: "index_projects_on_client_id"
+
+  create_table "tasks", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "invoice_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["invoice_id"], name: "index_tasks_on_invoice_id"
+  add_index "tasks", ["project_id"], name: "index_tasks_on_project_id"
 
 end
