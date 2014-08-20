@@ -1,0 +1,11 @@
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= @payment.id %> <span class="caret"></span></a>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="<%= payments_path %>"><i class="i-list"></i>Payments</a></li>
+        <li><a href="<%= invoices_path %>"><i class="i-list"></i>Invoices</a></li>
+        <li class="divider"></li>
+        <li><%= ilink_to('Edit', edit_payment_path(@payment)) %></li>
+        <li class="divider"></li>
+        <li><%= ilink_to_destroy(payment_path(@payment)) %></li>
+    </ul>
+</li>

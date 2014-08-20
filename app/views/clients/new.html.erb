@@ -1,5 +1,9 @@
-<h1>New Client</h1>
+<% content_for :crumbs do %>
+<%= render 'crumb_all' %>
+<li class="pull-right"><%= ibtn_link_to('cancel', clients_path) %></li>
+<li class="pull-right"><%= ibtn_link_to_save('new_client') %></li>
+<% end %>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', clients_path %>
+<div class="col-sm-6">
+    <%= render 'form' %>
+</div>

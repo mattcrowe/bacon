@@ -1,15 +1,14 @@
-<h1>Listing projects</h1>
-
-<%= link_to 'New project', new_project_path %>
+<% content_for :crumbs do %>
+<%= render 'crumb_all' %>
+<li class="pull-right"><%= ibtn_link_to('add', new_project_path) %></li>
+<% end %>
 
 <div class="table-responsive">
-    <table class="table table-striped table-condensed table-hover">
+    <table class="table">
         <tr>
             <th>Id</th>
             <th>Client</th>
             <th>Name</th>
-            <th></th>
-            <th></th>
             <th></th>
         </tr>
 
@@ -18,12 +17,9 @@
             <td><%= project.id %></td>
             <td><%= project.client %></td>
             <td><%= project.name %></td>
-            <td><%= link_to 'Show', project_path(project) %></td>
-            <td><%= link_to 'Edit', edit_project_path(project) %></td>
-            <td><%= link_to 'Destroy', project_path(project),
-                method: :delete, data: { confirm: 'Are you sure?' } %>
-            </td>
+            <td><%= ibtn_link_to('OPEN', project_path(project)) %></td>
         </tr>
         <% end %>
+
     </table>
 </div>

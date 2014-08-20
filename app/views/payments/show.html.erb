@@ -1,0 +1,14 @@
+<% content_for :crumbs do %>
+    <%= render 'crumb_all' %>
+    <%= render 'crumb_one', object: @payment %>
+    <li class="pull-right"><%= ibtn_link_to('edit', edit_payment_path(@payment)) %></li>
+<% end %>
+
+<dl class="dl-horizontal">
+    <dt>Id</dt>
+    <dd><%= @payment.id %></dd>
+    <dt>Client</dt>
+    <dd><%= @payment.client %></dd>
+    <dt>Name</dt>
+    <dd><%= @payment.name %></dd>
+</dl>

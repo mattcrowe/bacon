@@ -2,9 +2,10 @@ class CreateEntries < ActiveRecord::Migration
   def change
     create_table :entries do |t|
       t.references :task, index: true
+      t.references :invoice, index: true
       t.decimal :hours
       t.decimal :rate
-      t.datetime :done_at
+      t.date :done_at
       t.timestamps
     end
   end

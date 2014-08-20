@@ -1,0 +1,27 @@
+<% content_for :crumbs do %>
+<%= render 'crumb_all' %>
+<li class="pull-right"><%= ibtn_link_to('add', new_task_path) %></li>
+<% end %>
+
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Client</th>
+            <th>Project</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+
+        <% @tasks.each do |task| %>
+        <tr>
+            <td><%= task.id %></td>
+            <td><%= task.project.client %></td>
+            <td><%= task.project %></td>
+            <td><%= task.name %></td>
+            <td><%= ibtn_link_to('OPEN', task_path(task)) %></td>
+        </tr>
+        <% end %>
+
+    </table>
+</div>

@@ -1,10 +1,73 @@
 class Client < ActiveRecord::Base
-    has_many :projects, dependent: :destroy
-    has_many :invoices, dependent: :destroy
 
-    validates :name, presence: true, length: { minimum: 5 }
+  has_many :projects, dependent: :destroy
+  has_many :invoices, dependent: :destroy
+  has_many :payments, dependent: :destroy
 
-    def to_s
-      name
+  validates :name, presence: true, length: {minimum: 5}
+
+  def invoice_open_entries(period = Time.now)
+
+    entries = []
+
+    self.projects.each do |project|
+      project.tasks.each do |task|
+        task.entries.each do |entry|
+          if entry.done_at < period && entry.invoice.blank?
+            entries << entry
+          end
+        end
+      end
     end
+
+    if entries.any?
+      total = 0
+      invoice = Invoice.create(client_id: self.id, ends_at: period)
+      entries.each do |entry|
+        total += entry.hours * entry.rate
+        entry.invoice_id = invoice.id
+        entry.save
+      end
+      invoice.total = total
+      invoice.save
+    end
+
+  end
+
+  def invoiced
+
+    invoiced = 0.0
+
+    self.projects.each do |project|
+      project.tasks.each do |task|
+        task.entries.each do |entry|
+          invoiced += entry.hours * entry.rate
+        end
+      end
+    end
+
+    invoiced
+
+  end
+
+  def paid
+
+    paid = 0.0
+
+    self.payments.each do |payment|
+      paid += payment.total.to_f
+    end
+
+    paid
+
+  end
+
+  def owed
+    self.invoiced - self.paid
+  end
+
+  def to_s
+    name
+  end
+
 end

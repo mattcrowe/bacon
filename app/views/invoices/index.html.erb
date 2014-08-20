@@ -1,0 +1,27 @@
+<% content_for :crumbs do %>
+<%= render 'crumb_all' %>
+<li class="pull-right"><%= ibtn_link_to('add', new_invoice_path) %></li>
+<% end %>
+
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Client</th>
+            <th>Total</th>
+            <th>Ends At</th>
+            <th></th>
+        </tr>
+
+        <% @invoices.each do |invoice| %>
+        <tr>
+            <td><%= invoice.id %></td>
+            <td><%= invoice.client %></td>
+            <td><%= number_to_currency(invoice.total) %></td>
+            <td><%= invoice.ends_at.strftime('%m/%d/%Y') %></td>
+            <td><%= ibtn_link_to('OPEN', invoice_path(invoice)) %></td>
+        </tr>
+        <% end %>
+
+    </table>
+</div>

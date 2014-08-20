@@ -1,27 +1,18 @@
-<p>
-    <strong>Name:</strong>
-    <%= @client.name %>
-</p>
+<% content_for :crumbs do %>
+    <%= render 'crumb_all' %>
+    <%= render 'crumb_one', object: @client %>
+    <li class="pull-right"><%= ibtn_link_to('edit', edit_client_path(@client)) %></li>
+<% end %>
 
-<p>
-    <strong>Contact:</strong>
-    <%= @client.contact %>
-</p>
-
-<p>
-    <strong>Email:</strong>
-    <%= @client.email %>
-</p>
-
-<p>
-    <strong>Rate:</strong>
-    <%= @client.rate %>
-</p>
-
-<h2>Projects</h2>
-<%= render @client.projects %>
-
-<h2>Add a project:</h2>
-<%= render "projects/form" %>
-
-<%= link_to 'Back', clients_path %> | <%= link_to 'Edit', edit_client_path(@client) %>
+<dl class="dl-horizontal">
+    <dt>Id</dt>
+    <dd><%= @client.id %></dd>
+    <dt>Name</dt>
+    <dd><%= @client.name %></dd>
+    <dt>Contact</dt>
+    <dd><%= @client.contact %></dd>
+    <dt>Email</dt>
+    <dd><%= @client.email %></dd>
+    <dt>Rate</dt>
+    <dd><%= @client.rate %></dd>
+</dl>

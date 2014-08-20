@@ -1,0 +1,100 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome";
+@import "icons";
+
+body { padding-top: 50px }
+
+.red { color: #d9534f }
+.blue { color: #428bca }
+.green { color: #5cb85c }
+
+.btn {
+  @extend .btn-default;
+  @extend .btn-xs;
+}
+
+.btn-green {
+  @extend .btn;
+  background-image: -webkit-linear-gradient(top,#5cb85c 0,#419641 100%);
+  background-image: -o-linear-gradient(top,#5cb85c 0,#419641 100%);
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#5cb85c),to(#419641));
+  background-image: linear-gradient(to bottom,#5cb85c 0,#419641 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5cb85c', endColorstr='#ff419641', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  background-repeat: repeat-x;
+  border-color: #3e8f3e;
+  color: #fff;
+}
+
+.navbar {
+  @extend .navbar-inverse;
+  @extend .navbar-fixed-top;
+  .navbar-brand {
+    color: #e7e7e7;
+  }
+  .navbar-nav > li > a {
+    color: #e7e7e7;
+  }
+}
+
+.breadcrumb {
+  background-color: #F8F8F8;
+  border-bottom: 1px solid #ccc;
+  li.pull-right {
+    margin:0 5px 0 0;
+  };
+  li.pull-right:before {
+    padding:0;
+    content:"";
+  };
+  li.pull-right a {
+    //@extend .btn;
+    span {
+      @extend .hidden-xs;
+    }
+  }
+}
+
+
+
+table.table {
+  @extend .table-striped;
+  @extend .table-condensed;
+  @extend .table-hover;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  a.btn {
+    @extend .btn-default;
+    @extend .btn-xs;
+    span {
+      @extend .hidden-xs;
+    }
+  }
+}
+
+.form-group {
+  input {
+    @extend .form-control;
+  }
+  select {
+    @extend .form-control;
+  }
+}
+

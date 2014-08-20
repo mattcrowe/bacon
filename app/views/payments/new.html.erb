@@ -1,0 +1,9 @@
+<% content_for :crumbs do %>
+<%= render 'crumb_all' %>
+<li class="pull-right"><%= ibtn_link_to('cancel', payments_path) %></li>
+<li class="pull-right"><%= ibtn_link_to_save('new_payment') %></li>
+<% end %>
+
+<div class="col-sm-6">
+    <%= render 'form' %>
+</div>

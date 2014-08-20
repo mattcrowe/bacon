@@ -1,9 +1,25 @@
-<%= form_for([@client, @client.projects.build]) do |f| %>
-<p>
-    <%= f.label :name %><br>
+<%= form_for @project do |f| %>
+
+<% if @project.errors.any? %>
+<div id="error_explanation">
+    <h2><%= pluralize(@project.errors.count, "error") %> prohibited
+        this project from being saved:</h2>
+    <ul>
+        <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+
+<div class="form-group">
+    <%= f.label :client_id %>
+    <%= collection_select(:project, :client_id, @clients, :id, :name) %>
+</div>
+
+<div class="form-group">
+    <%= f.label :name %>
     <%= f.text_field :name %>
-</p>
-<p>
-    <%= f.submit %>
-</p>
+</div>
+
 <% end %>

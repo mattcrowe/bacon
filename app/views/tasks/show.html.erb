@@ -1,0 +1,14 @@
+<% content_for :crumbs do %>
+    <%= render 'crumb_all' %>
+    <%= render 'crumb_one', object: @task %>
+    <li class="pull-right"><%= ibtn_link_to('edit', edit_task_path(@task)) %></li>
+<% end %>
+
+<dl class="dl-horizontal">
+    <dt>Id</dt>
+    <dd><%= @task.id %></dd>
+    <dt>Project</dt>
+    <dd><%= @task.project %></dd>
+    <dt>Name</dt>
+    <dd><%= @task.name %></dd>
+</dl>

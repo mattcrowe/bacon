@@ -14,3 +14,19 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= require bootstrap-sprockets
+
+function submitForm(formID) {
+    document.getElementById(formID).submit();
+    return false;
+};
+
+/*
+ * All sites
+ */
+$(function() {
+//    $('.dropdown-toggle').dropdown();
+
+
+
+});

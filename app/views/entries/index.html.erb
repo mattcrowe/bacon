@@ -1,0 +1,35 @@
+<% content_for :crumbs do %>
+    <%= render 'crumb_all' %>
+    <li class="pull-right"><%= ibtn_link_to('add', new_entry_path) %></li>
+<% end %>
+
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th>Id</th>
+      <th>Client</th>
+      <th>Project</th>
+      <th>Task</th>
+      <th>Invoice</th>
+      <th>Hours</th>
+      <th>Rate</th>
+      <th>Done At</th>
+      <th></th>
+    </tr>
+
+    <% @entries.each do |entry| %>
+        <tr>
+          <td><%= entry.id %></td>
+          <td><%= entry.task.project.client %></td>
+          <td><%= entry.task.project %></td>
+          <td><%= entry.task %></td>
+          <td><%= entry.invoice %></td>
+          <td><%= entry.hours %></td>
+          <td><%= entry.rate %></td>
+          <td><%= entry.done_at.strftime('%m/%d/%Y') %></td>
+          <td><%= ibtn_link_to('OPEN', entry_path(entry)) %></td>
+        </tr>
+    <% end %>
+
+  </table>
+</div>

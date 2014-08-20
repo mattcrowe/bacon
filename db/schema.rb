@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140818184930) do
+ActiveRecord::Schema.define(version: 20140820220242) do
 
   create_table "clients", force: true do |t|
     t.string   "name"
@@ -24,23 +24,39 @@ ActiveRecord::Schema.define(version: 20140818184930) do
 
   create_table "entries", force: true do |t|
     t.integer  "task_id"
+    t.integer  "invoice_id"
     t.decimal  "hours"
     t.decimal  "rate"
-    t.datetime "done_at"
+    t.date     "done_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "entries", ["invoice_id"], name: "index_entries_on_invoice_id"
   add_index "entries", ["task_id"], name: "index_entries_on_task_id"
 
   create_table "invoices", force: true do |t|
     t.integer  "client_id"
-    t.datetime "paid_at"
+    t.decimal  "total",      precision: 10, scale: 2
+    t.decimal  "paid",       precision: 10, scale: 2
+    t.date     "starts_at"
+    t.date     "ends_at"
+    t.date     "paid_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "invoices", ["client_id"], name: "index_invoices_on_client_id"
+
+  create_table "payments", force: true do |t|
+    t.integer  "client_id"
+    t.decimal  "total",      precision: 5, scale: 2
+    t.datetime "paid_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "payments", ["client_id"], name: "index_payments_on_client_id"
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -53,13 +69,11 @@ ActiveRecord::Schema.define(version: 20140818184930) do
 
   create_table "tasks", force: true do |t|
     t.integer  "project_id"
-    t.integer  "invoice_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "tasks", ["invoice_id"], name: "index_tasks_on_invoice_id"
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id"
 
 end

@@ -6,12 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Bacon</title>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/css/style.css">
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -23,7 +17,7 @@
 </head>
 <body class="admin">
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="navbar" role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -43,10 +37,7 @@
                     <li><a href="<%= tasks_path %>">Tasks</a></li>
                     <li><a href="<%= entries_path %>">Entries</a></li>
                     <li><a href="<%= invoices_path %>">Invoices</a></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
+                    <li><a href="<%= payments_path %>">Payments</a></li>
                 </ul>
             </li>
         </ul>
@@ -54,10 +45,19 @@
     <!--/.nav-collapse -->
 </div>
 
-<%= yield %>
+<ol class="breadcrumb">
+    <%= yield :crumbs %>
+</ol>
+
+<div style="padding:0 20px 20px;">
+    <% flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, class: 'alert alert-' + name %>
+    <% end -%>
+
+    <%= yield %>
+</div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <!-- Latest compiled and minified JavaScript -->
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 </html>
