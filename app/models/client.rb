@@ -4,6 +4,8 @@ class Client < ActiveRecord::Base
   has_many :invoices, dependent: :destroy
   has_many :payments, dependent: :destroy
 
+  default_scope {order(:name)}
+
   validates :name, presence: true, length: {minimum: 5}
 
   def invoice_open_entries(period = Time.now)

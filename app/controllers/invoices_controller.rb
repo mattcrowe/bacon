@@ -1,7 +1,19 @@
 class InvoicesController < ApplicationController
 
   def index
-    @invoices = Invoice.order(:ends_at).all
+
+    q = Invoice
+
+    q = q.where("client_id = ?", request[:client_id]) if request.GET.include? "client_id"
+
+    if request.GET.include? "project_id"
+      q = q.joins(client: :projects)
+      q = q.where("projects.id = ?", request[:project_id])
+    end
+
+    q = q.joins(:entries).where("entries.task_id = ?", request[:task_id]) if request.GET.include? "task_id"
+
+    @invoices = q.all
   end
 
   def new
@@ -31,6 +43,15 @@ class InvoicesController < ApplicationController
 
   def show
     @invoice = Invoice.find(params[:id])
+
+    # require 'net/smtp'
+    # msg = "Subject: Hi There!\n\ntest 4 This works, and this part is in the body."
+    # smtp = Net::SMTP.new 'smtp.gmail.com', 587
+    # smtp.enable_starttls
+    # smtp.start('gmail.com', 'matthew.p.crowe@gmail.com', 'tosaotpsixglbhso', :login) do
+    #   smtp.send_message(msg, 'matthew.p.crowe@gmail.com', '"Matt Crowe" <matt@zym.me>')
+    # end
+
   end
 
   def edit

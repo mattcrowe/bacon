@@ -1,18 +1,45 @@
 class EntriesController < ApplicationController
 
   def index
-    @entries = Entry.order(:done_at).all
+
+    @clients = Client.all
+
+    q = Entry.order(:done_at)
+
+    unless request[:client_id].blank?
+      q = q.joins(task: [{project: :client}])
+      q = q.where("client_id = ?", request[:client_id])
+    end
+
+    if request.GET.include? "project_id"
+      q = q.joins(task: [{project: :client}])
+      q = q.where("project_id = ?", request[:project_id])
+    end
+
+    q = q.where("task_id = ?", request[:task_id]) unless request[:task_id].blank?
+    q = q.where("invoice_id = ?", request[:invoice_id]) unless request[:invoice_id].blank?
+
+    # set date range if it exists
+    q = q.where("done_at >= ?", request[:from]) unless request[:from].blank?
+    q = q.where("done_at <= ?", request[:to]) unless request[:to].blank?
+
+    @entries = q.all
+
+    # sum hours and rate*hours
+    @hours = 0
+    @total = 0
+    @entries.each do |entry|
+      @hours += entry.hours
+      @total += entry.hours * entry.rate
+    end
+
+
+
   end
 
   def new
     @tasks = Task.all
     @entry = Entry.new
-  end
-
-  def createasdf
-    @entry = Entry.find(params[:entry_id])
-    @entry = @entry.entries.create(entry_params)
-    redirect_to entry_path(@entry)
   end
 
   def entry_params
@@ -64,8 +91,5 @@ class EntriesController < ApplicationController
   end
 
   private
-  def entry_params
-    params.require(:entry).permit(:task_id, :name)
-  end
 
 end

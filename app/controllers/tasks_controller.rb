@@ -1,71 +1,67 @@
 class TasksController < ApplicationController
 
-    def index
-      @tasks = Task.all
+  def index
+    q = Task
+
+    if request.GET.include? "client_id"
+      q = q.joins(project: :client)
+      q = q.where("client_id = ?", request[:client_id])
     end
 
-    def new
-        @projects = Project.all
-        @task = Task.new
+    q = q.where("project_id = ?", request[:project_id]) if request.GET.include? "project_id"
+
+    @tasks = q.all
+  end
+
+  def new
+    @projects = Project.all
+    @task = Task.new
+  end
+
+  def task_params
+    params.require(:task).permit(:project_id, :name)
+  end
+
+  def create
+
+    @task = Task.new(task_params)
+
+    if @task.save
+      flash[:success] = "success! new task has been created"
+      redirect_to @task
+    else
+      render 'new'
     end
+  end
 
-    def createasdf
-        @task = Task.find(params[:task_id])
-        @task = @task.tasks.create(task_params)
-        redirect_to task_path(@task)
+  def show
+    @task = Task.find(params[:id])
+  end
+
+  def edit
+    @projects = Project.all
+    @task = Task.find(params[:id])
+  end
+
+  def update
+    @task = Task.find(params[:id])
+
+    if @task.update(task_params)
+      flash[:success] = "success! task has been updated"
+      redirect_to @task
+    else
+      render 'edit'
     end
+  end
 
-    def task_params
-        params.require(:task).permit(:project_id, :name)
-    end
-    
-    def create
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
 
-        logger.debug { task_params.inspect }
+    flash[:success] = "success! task has been deleted"
+    redirect_to tasks_path
+  end
 
-        @task = Task.new(task_params)
-
-        logger.debug { @task.inspect }
-
-        if @task.save
-            flash[:success] = "success! new task has been created"
-            redirect_to @task
-        else
-            render 'new'
-        end
-    end
-
-    def show
-      @task = Task.find(params[:id])
-    end
-
-    def edit
-        @projects = Project.all
-        @task = Task.find(params[:id])
-    end
-
-    def update
-      @task = Task.find(params[:id])
-
-      if @task.update(task_params)
-        flash[:success] = "success! task has been updated"
-        redirect_to @task
-      else
-        render 'edit'
-      end
-    end
-
-    def destroy
-        @task = Task.find(params[:id])
-        @task.destroy
-
-        flash[:success] = "success! task has been deleted"
-        redirect_to tasks_path
-    end
-
-    private
-        def task_params
-            params.require(:task).permit(:project_id, :name)
-        end
+  private
 
 end

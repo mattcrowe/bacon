@@ -1,7 +1,11 @@
 class PaymentsController < ApplicationController
 
   def index
-    @payments = Payment.all
+    q = Payment
+
+    q = q.where("client_id = ?", request[:client_id]) if request.GET.include? "client_id"
+
+    @payments = q.all
   end
 
   def new

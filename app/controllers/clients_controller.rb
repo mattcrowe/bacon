@@ -3,7 +3,7 @@ class ClientsController < ApplicationController
   http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
 
   def index
-    @clients = Client.all
+    @clients = Client.order(:name).all
   end
 
   def new
