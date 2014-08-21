@@ -72,8 +72,6 @@ body { padding-top: 50px }
   }
 }
 
-
-
 table.table {
   @extend .table-striped;
   @extend .table-condensed;
@@ -98,3 +96,10 @@ table.table {
   }
 }
 
+.alert.alert-alert {
+  @extend .alert-warning;
+}
+
+.alert.alert-notice {
+  @extend .alert-info;
+}

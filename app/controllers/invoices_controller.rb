@@ -1,16 +1,11 @@
 class InvoicesController < ApplicationController
 
   def index
-
     q = Invoice
-
     q = q.where("client_id = ?", request[:client_id]) if request.GET.include? "client_id"
-
     if request.GET.include? "project_id"
-      q = q.joins(client: :projects)
-      q = q.where("projects.id = ?", request[:project_id])
+      q = q.joins(client: :projects).where("projects.id = ?", request[:project_id])
     end
-
     q = q.joins(:entries).where("entries.task_id = ?", request[:task_id]) if request.GET.include? "task_id"
 
     @invoices = q.all
@@ -27,11 +22,7 @@ class InvoicesController < ApplicationController
 
   def create
 
-    logger.debug { invoice_params.inspect }
-
     @invoice = Invoice.new(invoice_params)
-
-    logger.debug { @invoice.inspect }
 
     if @invoice.save
       flash[:success] = "success! new invoice has been created"
@@ -76,6 +67,25 @@ class InvoicesController < ApplicationController
 
     flash[:success] = "success! invoice has been deleted"
     redirect_to invoices_path
+  end
+
+  def compose
+    @invoice = Invoice.find(params[:id])
+  end
+
+  def notify
+
+    require 'net/smtp'
+    msg = "Subject: %s\n\n%s" % [request[:subject],request[:body]]
+    smtp = Net::SMTP.new 'smtp.gmail.com', 587
+    smtp.enable_starttls
+    smtp.start('gmail.com', 'matthew.p.crowe@gmail.com', 'tosaotpsixglbhso', :login) do
+      smtp.send_message(msg, 'matthew.p.crowe@gmail.com', request[:email])
+    end
+
+    flash[:success] = "success! invoice has been sent"
+    redirect_to invoice_path(9)
+
   end
 
 end

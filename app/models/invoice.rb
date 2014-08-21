@@ -3,7 +3,7 @@ class Invoice < ActiveRecord::Base
   has_many :entries
 
   def to_s
-    id.to_s
+    'Invoice#' + id.to_s
   end
 
 end

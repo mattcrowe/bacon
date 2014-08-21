@@ -1,6 +1,11 @@
 <% content_for :crumbs do %>
     <%= render 'crumb_all' %>
     <li class="pull-right"><%= ibtn_link_to('add', new_entry_path) %></li>
+
+    <% if request[:client_id].present? && request[:invoiced] == 'no' %>
+        <li class="pull-right"><a class="btn" href="javascript:submitForm('new_invoice')"><i class="i-add"></i><span>invoice</span></a></li>
+    <% end %>
+
 <% end %>
 
 <form class="form-inline" action="<%= entries_path %>" method="GET">
@@ -12,13 +17,19 @@
   </div>
 
   <div class="form-group">
+    <label for="invoiced">Invoiced</label>
+    <% options = options_for_select([['Not Invoiced', 'no'], ['Invoiced', 'yes']], request[:invoiced]) %>
+    <%= select_tag('invoiced', options, {:include_blank => true}) %>
+  </div>
+
+  <div class="form-group">
     <label for="from">From</label>
-    <input type="date" class="form-control" id="to" name="from" value="<%= request[:from] %>" placeholder="Start Date" />
+    <input type="date" class="form-control" id="from" name="from" value="<%= request[:from] %>" placeholder="Start Date"/>
   </div>
 
   <div class="form-group">
     <label for="to">To</label>
-    <input type="date" class="form-control" id="from" name="to" value="<%= request[:to] %>" placeholder="Start Date" />
+    <input type="date" class="form-control" id="to" name="to" value="<%= request[:to] %>" placeholder="Start Date"/>
   </div>
 
   <button type="submit" class="btn">filter</button>
@@ -27,50 +38,64 @@
 
 <br/>
 
-<div class="table-responsive">
-  <table class="table">
-    <tr>
-      <th>Id</th>
-      <th>Client</th>
-      <th>Project</th>
-      <th>Task</th>
-      <th>Invoice</th>
-      <th>Rate</th>
-      <th>Hours</th>
-      <th>Total</th>
-      <th>Done At</th>
-      <th></th>
-    </tr>
+<form id="new_invoice" action="<%= url_for(controller: "entries", action: "invoice") %>" method="POST">
 
-    <% @entries.each do |entry| %>
-        <tr>
-          <td><%= entry.id %></td>
-          <td><%= entry.task.project.client %></td>
-          <td><%= entry.task.project %></td>
-          <td><%= entry.task %></td>
-          <td><%= entry.invoice %></td>
-          <td><%= entry.rate %></td>
-          <td><%= entry.hours %></td>
-          <td><%= number_to_currency(entry.hours * entry.rate) %></td>
-          <td><%= entry.done_at.strftime('%m/%d/%Y') %></td>
-          <td><%= ibtn_link_to('OPEN', entry_path(entry)) %></td>
-        </tr>
-    <% end %>
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"/>
+  <input name="client_id" type="hidden" value="<%= request[:client_id] %>"/>
 
-    <tfoot>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><%= @hours %></td>
-      <td><%= number_to_currency(@total) %></td>
-      <td></td>
-      <td></td>
-    </tr>
-    </tfoot>
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <th>Id</th>
+        <th>Client</th>
+        <th>Project</th>
+        <th>Task</th>
+        <th>Invoice</th>
+        <th>Rate</th>
+        <th>Hours</th>
+        <th>Total</th>
+        <th>Done At</th>
+        <th></th>
+      </tr>
 
-  </table>
-</div>
+      <% i=0 %>
+
+      <% @entries.each do |entry| %>
+
+          <input type="hidden" name="entry[<%= i %>]" value="<%= entry.id %>"/>
+
+          <tr>
+            <td><%= entry.id %></td>
+            <td><%= entry.task.project.client %></td>
+            <td><%= entry.task.project %></td>
+            <td><%= entry.task %></td>
+            <td><%= entry.invoice %></td>
+            <td><%= entry.rate %></td>
+            <td><%= entry.hours %></td>
+            <td><%= number_to_currency(entry.hours * entry.rate) %></td>
+            <td><%= entry.done_at.strftime('%m/%d/%Y') %></td>
+            <td><%= ibtn_link_to('OPEN', entry_path(entry)) %></td>
+          </tr>
+
+          <% i += 1 %>
+      <% end %>
+
+      <tfoot>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= @hours %></td>
+        <td><%= number_to_currency(@total) %></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tfoot>
+
+    </table>
+  </div>
+
+</form>

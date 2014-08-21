@@ -1,20 +1,31 @@
 Rails.application.routes.draw do
 
-  resources :clients do
-    resources :projects
-  end
+  devise_for :users, :clients
 
+  root 'welcome#index'
+
+  resources :users
+  resources :clients
   resources :projects
   resources :tasks
-  resources :entries
-  resources :invoices
+  resources :entries do
+    collection do
+      post 'invoice' => 'entries#invoice'
+    end
+  end
+  resources :invoices do
+    collection do
+      get ':id/compose' => 'invoices#compose'
+      post ':id/notify' => 'invoices#notify'
+    end
+  end
   resources :payments
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

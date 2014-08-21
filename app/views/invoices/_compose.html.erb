@@ -1,0 +1,14 @@
+Hi <%= @invoice.client.name %>,
+
+Below (and attached) is my invoice for the period ending <%= @invoice.ends_at %>.
+
+<%= "Done At\t\tHours\tRate\t\tProject > Task" %>
+<% @invoice.entries.each do |entry| %>
+<%= "%s\t\t%s\t\t%s\t%s > %s" % [entry.done_at.strftime('%m/%d/%y'), entry.hours, number_to_currency(entry.rate), entry.task.project, entry.task] %>
+<% end %>
+
+Let me know if you have any questions.
+
+Regards,
+
+<%= current_user.email %>

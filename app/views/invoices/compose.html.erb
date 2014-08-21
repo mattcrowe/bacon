@@ -1,0 +1,68 @@
+<% content_for :crumbs do %>
+    <%= render 'crumb_all' %>
+    <%= render 'crumb_one', object: @invoice %>
+    <li class="pull-right"><%= ibtn_link_to('edit', edit_invoice_path(@invoice)) %></li>
+<% end %>
+
+<div class="col-sm-6">
+
+  <form action="<%= url_for(controller: "invoices", action: "notify", id: @invoice.id) %>" method="POST">
+
+    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+
+    <div class="form-group">
+      <label for="contact">Contact</label>
+      <input type="text" class="form-control" id="contact" name="contact" value="<%= @invoice.client.contact %>"/>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email" value="<%= @invoice.client.email %>"/>
+    </div>
+
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <input type="text" class="form-control" id="subject" name="subject" value="Invoice <%= @invoice.ends_at %>"/>
+    </div>
+
+    <div class="form-group">
+      <label for="body">Body</label>
+      <textarea class="form-control" id="body" name="body" rows="10"><%= render 'compose' %></textarea>
+    </div>
+
+    <button type="submit" class="btn">notify</button>
+
+    <br/>
+    <br/>
+
+  </form>
+
+</div>
+
+<div class="col-sm-6">
+
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <th>Project</th>
+        <th>Task</th>
+        <th>Hours</th>
+        <th>Rate</th>
+        <th>Done At</th>
+        <th></th>
+      </tr>
+
+      <% @invoice.entries.each do |entry| %>
+          <tr>
+            <td><%= entry.task.project %></td>
+            <td><%= entry.task %></td>
+            <td><%= entry.hours %></td>
+            <td><%= entry.rate %></td>
+            <td><%= entry.done_at.strftime('%m/%d/%Y') %></td>
+            <td><%= ibtn_link_to('OPEN', entry_path(entry)) %></td>
+          </tr>
+      <% end %>
+
+    </table>
+  </div>
+</div>

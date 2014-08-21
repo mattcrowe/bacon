@@ -6,8 +6,15 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+
+
 module Invoicer
   class Application < Rails::Application
+
+    LogBuddy.init :logger => Logger.new('log/log.log')
+
+    # config.action_controller.include_all_helpers = true
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

@@ -19,6 +19,10 @@ class EntriesController < ApplicationController
     q = q.where("task_id = ?", request[:task_id]) unless request[:task_id].blank?
     q = q.where("invoice_id = ?", request[:invoice_id]) unless request[:invoice_id].blank?
 
+
+    q = q.where("invoice_id IS NULL") if request[:invoiced] == 'no'
+    q = q.where("invoice_id IS NOT NULL") if request[:invoiced] == 'yes'
+
     # set date range if it exists
     q = q.where("done_at >= ?", request[:from]) unless request[:from].blank?
     q = q.where("done_at <= ?", request[:to]) unless request[:to].blank?
@@ -33,8 +37,6 @@ class EntriesController < ApplicationController
       @total += entry.hours * entry.rate
     end
 
-
-
   end
 
   def new
@@ -48,11 +50,7 @@ class EntriesController < ApplicationController
 
   def create
 
-    logger.debug { entry_params.inspect }
-
     @entry = Entry.new(entry_params)
-
-    logger.debug { @entry.inspect }
 
     if @entry.save
       flash[:success] = "success! new entry has been created"
@@ -88,6 +86,42 @@ class EntriesController < ApplicationController
 
     flash[:success] = "success! entry has been deleted"
     redirect_to entries_path
+  end
+
+  def invoice
+
+    # d request[:entry].to_a.first.pop
+    # d request[:entry].to_a.last.pop
+
+    #first entry in batch
+    entry_1 = Entry.find(request[:entry].to_a.first.pop)
+    #last entry in batch
+    entry_n = Entry.find(request[:entry].to_a.last.pop)
+
+    # request.POST[:entry].each do |entryID|
+    #   d entryID
+    #   d entryID.pop
+    # end
+
+    invoice = Invoice.create(
+        client_id: request[:client_id],
+        starts_at: entry_1.done_at,
+        ends_at: entry_n.done_at,
+    )
+
+    total = 0
+    request.POST[:entry].each do |entry_id|
+      entry = Entry.find(entry_id.pop)
+      entry.invoice = invoice
+      entry.save
+      total += entry.hours * entry.rate
+    end
+
+    invoice.total = total
+    invoice.save
+
+    flash[:success] = "success! new invoice has been created"
+    redirect_to invoice_path(invoice)
   end
 
   private

@@ -1,10 +1,11 @@
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= @invoice.id %> <span class="caret"></span></a>
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= @invoice %> <span class="caret"></span></a>
   <ul class="dropdown-menu" role="menu">
     <li><a href="<%= entries_path %>?invoice_id=<%= @invoice.id %>"><i class="i-list"></i>Entries</a></li>
     <li class="divider"></li>
     <li><a href="<%= client_path(@invoice.client) %>"><i class="i-open"></i>Client</a></li>
     <li class="divider"></li>
+    <li><a href="<%= url_for(controller: 'invoices', action: 'compose', id: @invoice.id) %>"><i class="i-email"></i>Compose</a></li>
     <li><%= ilink_to('Edit', edit_invoice_path(@invoice)) %></li>
     <li class="divider"></li>
     <li><%= ilink_to_destroy(invoice_path(@invoice)) %></li>

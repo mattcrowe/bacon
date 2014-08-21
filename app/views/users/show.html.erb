@@ -1,0 +1,18 @@
+<% content_for :crumbs do %>
+    <%= render 'crumb_all' %>
+    <%= render 'crumb_one', object: @user %>
+    <li class="pull-right"><%= ibtn_link_to('edit', edit_user_path(@user)) %></li>
+<% end %>
+
+<dl class="dl-horizontal">
+    <dt>Id</dt>
+    <dd><%= @user.id %></dd>
+    <dt>Name</dt>
+    <dd><%= @user.name %></dd>
+    <dt>Contact</dt>
+    <dd><%= @user.contact %></dd>
+    <dt>Email</dt>
+    <dd><%= @user.email %></dd>
+    <dt>Rate</dt>
+    <dd><%= @user.rate %></dd>
+</dl>
