@@ -8,7 +8,7 @@ class Client < ActiveRecord::Base
 
   validates :name, presence: true, length: {minimum: 5}
 
-  def invoice_open_entries(period = Time.now)
+  def invoice_open_entries(user, period = Time.now)
 
     entries = []
 
@@ -24,9 +24,9 @@ class Client < ActiveRecord::Base
 
     if entries.any?
       total = 0
-      invoice = Invoice.create(client_id: self.id, ends_at: period)
+      invoice = Invoice.create(user_id: user.id, client_id: self.id, starts_at: period - 30.days, ends_at: period)
       entries.each do |entry|
-        total += entry.hours * entry.rate
+        total += entry.qty * entry.rate
         entry.invoice_id = invoice.id
         entry.save
       end
@@ -43,7 +43,7 @@ class Client < ActiveRecord::Base
     self.projects.each do |project|
       project.tasks.each do |task|
         task.entries.each do |entry|
-          invoiced += entry.hours * entry.rate
+          invoiced += entry.qty * entry.rate
         end
       end
     end

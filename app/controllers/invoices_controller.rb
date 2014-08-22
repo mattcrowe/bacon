@@ -35,14 +35,15 @@ class InvoicesController < ApplicationController
   def show
     @invoice = Invoice.find(params[:id])
 
-    # require 'net/smtp'
-    # msg = "Subject: Hi There!\n\ntest 4 This works, and this part is in the body."
-    # smtp = Net::SMTP.new 'smtp.gmail.com', 587
-    # smtp.enable_starttls
-    # smtp.start('gmail.com', 'matthew.p.crowe@gmail.com', 'tosaotpsixglbhso', :login) do
-    #   smtp.send_message(msg, 'matthew.p.crowe@gmail.com', '"Matt Crowe" <matt@zym.me>')
-    # end
-
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = InvoicePdf.new(@invoice, view_context)
+        # File.open('test.pdf', 'w') { |file| file.write(pdf.render) }
+        send_data pdf.render, filename:
+            "invoice_#{@invoice.created_at.strftime("%Y-%m-%d")}.pdf", type: "application/pdf"
+      end
+    end
   end
 
   def edit
@@ -76,7 +77,7 @@ class InvoicesController < ApplicationController
   def notify
 
     require 'net/smtp'
-    msg = "Subject: %s\n\n%s" % [request[:subject],request[:body]]
+    msg = "Subject: %s\n\n%s" % [request[:subject], request[:body]]
     smtp = Net::SMTP.new 'smtp.gmail.com', 587
     smtp.enable_starttls
     smtp.start('gmail.com', 'matthew.p.crowe@gmail.com', 'tosaotpsixglbhso', :login) do

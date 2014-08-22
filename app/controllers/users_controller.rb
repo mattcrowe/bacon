@@ -1,6 +1,24 @@
 class UsersController < ApplicationController
 
   def index
+
+    # d Settings.load!("#{Rails.root}/config/appdata.yml", :env => Rails.env)
+
+    d Settings.get(111)
+    d Settings.get('smtp_email')
+
+    # data = YAML::load_file("#{Rails.root}/config/appdata.yml")
+    #
+    # if data['smtp_email'].present?
+    #   d 555
+    # end
+    #
+    # if data['asdf'].present?
+    #   d 111
+    # end
+    #
+    # d data['smtp_email']
+
     @users = User.order(:email).all
   end
 

@@ -1,0 +1,11 @@
+#smtp data
+smtp_email: someadmin@somewhere.net
+smtp_pass: somepassword
+
+#invoice data for pdf
+invoice_name: Test User
+invoice_address1: 123 Some St
+invoice_address2:
+invoice_city: Some City
+invoice_state: OH
+invoice_zip: 45000

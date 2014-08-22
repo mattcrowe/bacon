@@ -29,12 +29,12 @@ class EntriesController < ApplicationController
 
     @entries = q.all
 
-    # sum hours and rate*hours
-    @hours = 0
+    # sum qty and rate*qty
+    @qty = 0
     @total = 0
     @entries.each do |entry|
-      @hours += entry.hours
-      @total += entry.hours * entry.rate
+      @qty += entry.qty
+      @total += entry.qty * entry.rate
     end
 
   end
@@ -114,7 +114,7 @@ class EntriesController < ApplicationController
       entry = Entry.find(entry_id.pop)
       entry.invoice = invoice
       entry.save
-      total += entry.hours * entry.rate
+      total += entry.qty * entry.rate
     end
 
     invoice.total = total

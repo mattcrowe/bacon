@@ -8,7 +8,6 @@
         <tr>
             <th>Id</th>
             <th>Email</th>
-            <th>Password</th>
             <th></th>
         </tr>
 
@@ -16,7 +15,6 @@
         <tr>
             <td><%= user.id %></td>
             <td><%= user.email %></td>
-            <td><%= user.encrypted_password %></td>
             <td><%= ibtn_link_to('OPEN', user_path(user)) %></td>
         </tr>
         <% end %>

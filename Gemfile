@@ -1,14 +1,16 @@
 source 'https://rubygems.org'
 
 gem 'devise'
+#gem 'hashie'
+gem 'prawn'
+gem 'prawn-table'
+gem 'log_buddy'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
-
-gem 'log_buddy'
 
 # Use SCSS for stylesheets
 gem "font-awesome-rails"
@@ -50,4 +52,4 @@ gem 'spring',        group: :development
 # gem 'capistrano-rails', group: :development
 
 # Use debugger
-gem 'debugger', group: [:development, :test]
+#gem 'debugger', group: [:development, :test]

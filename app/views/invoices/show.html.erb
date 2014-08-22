@@ -16,7 +16,7 @@
     <tr>
       <th>Project</th>
       <th>Task</th>
-      <th>Hours</th>
+      <th>Qty</th>
       <th>Rate</th>
       <th>Done At</th>
       <th></th>
@@ -26,7 +26,7 @@
         <tr>
           <td><%= entry.task.project %></td>
           <td><%= entry.task %></td>
-          <td><%= entry.hours %></td>
+          <td><%= entry.qty %></td>
           <td><%= entry.rate %></td>
           <td><%= entry.done_at.strftime('%m/%d/%Y') %></td>
           <td><%= ibtn_link_to('OPEN', entry_path(entry)) %></td>

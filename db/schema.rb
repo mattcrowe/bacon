@@ -15,9 +15,14 @@ ActiveRecord::Schema.define(version: 20140821191207) do
 
   create_table "clients", force: true do |t|
     t.string   "name"
+    t.decimal  "rate"
     t.string   "contact"
     t.string   "email"
-    t.decimal  "rate"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -25,7 +30,7 @@ ActiveRecord::Schema.define(version: 20140821191207) do
   create_table "entries", force: true do |t|
     t.integer  "task_id"
     t.integer  "invoice_id"
-    t.decimal  "hours"
+    t.decimal  "qty"
     t.decimal  "rate"
     t.date     "done_at"
     t.datetime "created_at"
@@ -37,6 +42,7 @@ ActiveRecord::Schema.define(version: 20140821191207) do
 
   create_table "invoices", force: true do |t|
     t.integer  "client_id"
+    t.integer  "user_id"
     t.decimal  "total",      precision: 10, scale: 2
     t.decimal  "paid",       precision: 10, scale: 2
     t.date     "starts_at"
@@ -47,6 +53,7 @@ ActiveRecord::Schema.define(version: 20140821191207) do
   end
 
   add_index "invoices", ["client_id"], name: "index_invoices_on_client_id"
+  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id"
 
   create_table "payments", force: true do |t|
     t.integer  "client_id"

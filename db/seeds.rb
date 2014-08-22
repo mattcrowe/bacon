@@ -6,11 +6,20 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create!(email: 'test@test.com', password: 'password')
+user = User.create!(
+    email: 'test@test.com',
+    password: 'password'
+    # name: 'Test User',
+    # address1: '123 Some St',
+    # address2: '',
+    # city: 'Some City',
+    # state: 'OH',
+    # zip: '45000',
+)
 
 def add_entries(client, task)
   rand(1...5).times do |i|
-    Entry.create!(task_id: task.id, hours: rand(0...7) + [0.25, 0.5, 0.75, 1].sample, rate: client.rate, done_at: Time.now - rand(1...90).day)
+    Entry.create!(task_id: task.id, qty: rand(0...7) + [0.25, 0.5, 0.75, 1].sample, rate: client.rate, done_at: Time.now - rand(1...90).day)
   end
 end
 
@@ -36,9 +45,9 @@ add_entries(client, task)
 task = Task.create!(project_id: project.id, name: 'Maintenance')
 add_entries(client, task)
 
-client.invoice_open_entries(Time.now - 90.days)
-client.invoice_open_entries(Time.now - 60.days)
-client.invoice_open_entries(Time.now - 30.days)
+client.invoice_open_entries(user, Time.now - 90.days)
+client.invoice_open_entries(user, Time.now - 60.days)
+client.invoice_open_entries(user, Time.now - 30.days)
 # client.invoice_open_entries
 
 Payment.create(client_id:client.id, paid_at:Time.now, total: client.owed * rand(0.6...0.8).round(2))
@@ -57,10 +66,10 @@ add_entries(client, task)
 task = Task.create!(project_id: project.id, name: 'Maintenance')
 add_entries(client, task)
 
-client.invoice_open_entries(Time.now - 90.days)
-client.invoice_open_entries(Time.now - 60.days)
-client.invoice_open_entries(Time.now - 30.days)
-client.invoice_open_entries
+client.invoice_open_entries(user, Time.now - 90.days)
+client.invoice_open_entries(user, Time.now - 60.days)
+client.invoice_open_entries(user, Time.now - 30.days)
+client.invoice_open_entries(user)
 
 Payment.create(client_id:client.id, paid_at:Time.now, total: client.owed * rand(0.6...0.8).round(2))
 
@@ -78,9 +87,9 @@ add_entries(client, task)
 task = Task.create!(project_id: project.id, name: 'Maintenance')
 add_entries(client, task)
 
-client.invoice_open_entries(Time.now - 90.days)
-client.invoice_open_entries(Time.now - 60.days)
-client.invoice_open_entries(Time.now - 30.days)
-client.invoice_open_entries
+client.invoice_open_entries(user, Time.now - 90.days)
+client.invoice_open_entries(user, Time.now - 60.days)
+client.invoice_open_entries(user, Time.now - 30.days)
+client.invoice_open_entries(user)
 
 Payment.create(client_id:client.id, paid_at:Time.now, total: client.owed * rand(0.6...0.8).round(2))
