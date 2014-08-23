@@ -12,7 +12,6 @@
   <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body class="admin">
@@ -35,7 +34,6 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clients <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="<%= clients_path %>">Clients</a></li>
-              <li><a href="<%= projects_path %>">Projects</a></li>
               <li><a href="<%= tasks_path %>">Tasks</a></li>
               <li><a href="<%= entries_path %>">Entries</a></li>
               <li><a href="<%= invoices_path %>">Invoices</a></li>
@@ -64,5 +62,6 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <!-- Latest compiled and minified JavaScript -->
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </body>
 </html>

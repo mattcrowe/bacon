@@ -16,17 +16,17 @@
 //= require_tree .
 //= require bootstrap-sprockets
 
-function submitForm(formID) {
-    document.getElementById(formID).submit();
-    return false;
-};
+//function submitForm(formID) {
+//    document.getElementById(formID).submit();
+//    return false;
+//};
 
 /*
  * All sites
  */
-$(function() {
+//$(function() {
 //    $('.dropdown-toggle').dropdown();
 
 
 
-});
+//});

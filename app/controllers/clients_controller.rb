@@ -14,6 +14,7 @@ class ClientsController < ApplicationController
 
   def show
     @client = Client.find(params[:id])
+    @project = Project.new
   end
 
   def create

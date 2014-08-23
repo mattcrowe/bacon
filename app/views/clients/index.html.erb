@@ -4,32 +4,39 @@
 <% end %>
 
 <div class="table-responsive">
-    <table class="table">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Contact</th>
-            <th>Email</th>
-            <th>Rate</th>
-            <th>Invoiced</th>
-            <th>Paid</th>
-            <th>Owed</th>
-            <th></th>
-        </tr>
+  <table class="table">
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Contact</th>
+      <th>Email</th>
+      <th>Rate</th>
+      <th>Invoiced</th>
+      <th>Paid</th>
+      <th>Owed</th>
+      <th></th>
+    </tr>
 
-        <% @clients.each do |client| %>
+    <% @clients.each do |client| %>
         <tr>
-            <td><%= client.id %></td>
-            <td><%= client.name %></td>
-            <td><%= client.contact %></td>
-            <td><%= client.email %></td>
-            <td><%= number_to_currency(client.rate) %></td>
-            <td><%= number_to_currency(client.invoiced) %></td>
-            <td><%= number_to_currency(client.paid) %></td>
-            <td><%= number_to_currency(client.owed) %></td>
-            <td><%= ibtn_link_to('OPEN', client_path(client)) %></td>
+          <td><%= client.id %></td>
+          <td><%= client.name %></td>
+          <td><%= client.contact %></td>
+          <td><%= client.email %></td>
+          <td><%= number_to_currency(client.rate) %></td>
+          <td><%= number_to_currency(client.invoiced) %></td>
+          <td><%= number_to_currency(client.paid) %></td>
+          <td><%= number_to_currency(client.owed) %></td>
+          <td class="tright">
+            <div class="dropdown btn-group">
+              <a href="<%= client_path(client) %>" class="btn">OPEN</a>
+              <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span></a>
+              <%= render 'crumb_one', client: client %>
+            </div>
+          </td>
         </tr>
-        <% end %>
+    <% end %>
 
-    </table>
+  </table>
 </div>

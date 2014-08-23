@@ -1,16 +1,23 @@
 class TasksController < ApplicationController
 
   def index
-    q = Task
 
-    if request.GET.include? "client_id"
-      q = q.joins(project: :client)
-      q = q.where("client_id = ?", request[:client_id])
+    task = Task
+
+    if request[:project_id].present?
+
+      task = task.where("project_id = ?", request[:project_id])
+
+      @project = Project.find(request[:project_id])
+      @task = Task.new
+
+    elsif request[:client_id].present?
+
+      task = task.joins(project: :client).where("client_id = ?", request[:client_id])
+
     end
 
-    q = q.where("project_id = ?", request[:project_id]) if request.GET.include? "project_id"
-
-    @tasks = q.all
+    @tasks = task.all
   end
 
   def new
