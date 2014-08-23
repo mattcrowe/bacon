@@ -5,6 +5,7 @@ gem 'devise'
 gem 'prawn'
 gem 'prawn-table'
 gem 'log_buddy'
+gem 'mysql2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'

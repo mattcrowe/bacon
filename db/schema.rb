@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20140821191207) do
 
   create_table "clients", force: true do |t|
     t.string   "name"
-    t.decimal  "rate"
+    t.decimal  "rate",       precision: 10, scale: 0
     t.string   "contact"
     t.string   "email"
     t.string   "address1"
@@ -30,15 +30,15 @@ ActiveRecord::Schema.define(version: 20140821191207) do
   create_table "entries", force: true do |t|
     t.integer  "task_id"
     t.integer  "invoice_id"
-    t.decimal  "qty"
-    t.decimal  "rate"
+    t.decimal  "qty",        precision: 10, scale: 0
+    t.decimal  "rate",       precision: 10, scale: 0
     t.date     "done_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "entries", ["invoice_id"], name: "index_entries_on_invoice_id"
-  add_index "entries", ["task_id"], name: "index_entries_on_task_id"
+  add_index "entries", ["invoice_id"], name: "index_entries_on_invoice_id", using: :btree
+  add_index "entries", ["task_id"], name: "index_entries_on_task_id", using: :btree
 
   create_table "invoices", force: true do |t|
     t.integer  "client_id"
@@ -52,27 +52,27 @@ ActiveRecord::Schema.define(version: 20140821191207) do
     t.datetime "updated_at"
   end
 
-  add_index "invoices", ["client_id"], name: "index_invoices_on_client_id"
-  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id"
+  add_index "invoices", ["client_id"], name: "index_invoices_on_client_id", using: :btree
+  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id", using: :btree
 
   create_table "payments", force: true do |t|
     t.integer  "client_id"
-    t.decimal  "total",      precision: 5, scale: 2
+    t.decimal  "total",      precision: 10, scale: 2
     t.datetime "paid_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "payments", ["client_id"], name: "index_payments_on_client_id"
+  add_index "payments", ["client_id"], name: "index_payments_on_client_id", using: :btree
 
   create_table "projects", force: true do |t|
-    t.string   "name"
     t.integer  "client_id"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "projects", ["client_id"], name: "index_projects_on_client_id"
+  add_index "projects", ["client_id"], name: "index_projects_on_client_id", using: :btree
 
   create_table "tasks", force: true do |t|
     t.integer  "project_id"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20140821191207) do
     t.datetime "updated_at"
   end
 
-  add_index "tasks", ["project_id"], name: "index_tasks_on_project_id"
+  add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 20140821191207) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

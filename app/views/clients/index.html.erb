@@ -23,7 +23,7 @@
             <td><%= client.name %></td>
             <td><%= client.contact %></td>
             <td><%= client.email %></td>
-            <td><%= client.rate %></td>
+            <td><%= number_to_currency(client.rate) %></td>
             <td><%= number_to_currency(client.invoiced) %></td>
             <td><%= number_to_currency(client.paid) %></td>
             <td><%= number_to_currency(client.owed) %></td>
