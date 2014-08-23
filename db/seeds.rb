@@ -23,7 +23,8 @@ def add_entries(client, task)
   end
 end
 
-client = Client.create!(name: "Bob's Donuts", contact: "Finn", email: "finn@bobsdonuts.com", rate: 65.00)
+client = Client.create!(name: "Bob's Donuts", contact: "Finn", email: "finn@bobsdonuts.com", rate: 65.00,
+                        address1: '1 Tree House Rd', city: 'Ood', state: 'CK', zip: '99999')
 
 project = Project.create!(client_id: client.id, name: 'Home Page')
 task = Task.create!(project_id: project.id, name: 'Development')
@@ -52,7 +53,8 @@ client.invoice_open_entries(user, Time.now - 30.days)
 
 Payment.create(client_id:client.id, paid_at:Time.now, total: client.owed * rand(0.6...0.8).round(2))
 
-client = Client.create!(name: "Taco Hut", contact: "Jeffrey Barnes", email: "jeffster@tacohut.com", rate: 65.00)
+client = Client.create!(name: "Taco Hut", contact: "Jeffrey Barnes", email: "jeffster@tacohut.com", rate: 65.00,
+                        address1: '321 Over St', city: 'Battery', state: 'OH', zip: '99999')
 
 project = Project.create!(client_id: client.id, name: 'New Web Site')
 task = Task.create!(project_id: project.id, name: 'Development')
@@ -73,7 +75,8 @@ client.invoice_open_entries(user)
 
 Payment.create(client_id:client.id, paid_at:Time.now, total: client.owed * rand(0.6...0.8).round(2))
 
-client = Client.create!(name: "Daily Planet", contact: "C Kent", email: "ckent@dailyplanet.com", rate: 40.00)
+client = Client.create!(name: "Daily Planet", contact: "C Kent", email: "ckent@dailyplanet.com", rate: 40.00,
+                        address1: '100 Main St', city: 'Metropolis', state: 'SW', zip: '99999')
 
 project = Project.create!(client_id: client.id, name: 'Contact Page')
 task = Task.create!(project_id: project.id, name: 'Development')

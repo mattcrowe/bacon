@@ -1,9 +1,8 @@
 class InvoicePdf < Prawn::Document
 
-  def initialize(invoice, view)
+  def initialize(invoice)
     super()
     @invoice = invoice
-    @view = view
     header
     font 'Helvetica'
     entry_table
@@ -12,7 +11,7 @@ class InvoicePdf < Prawn::Document
   end
 
   def precision(num)
-    @view.number_with_precision(num, :precision => 2)
+    sprintf( "%0.02f", num)
   end
 
   def header
@@ -22,8 +21,8 @@ class InvoicePdf < Prawn::Document
     text "Invoice prepared for:", :style => :bold
     move_down 15
     text @invoice.client.name.capitalize
-    text "123 Some St."
-    text "City, ST 99999"
+    text @invoice.client.address1
+    text '%s, %s %s' % [@invoice.client.city, @invoice.client.state, @invoice.client.zip]
 
     move_cursor_to 700
 
@@ -40,7 +39,7 @@ class InvoicePdf < Prawn::Document
     table entries, :width => 535 do
       row(0).font_style = :bold
       self.header = true
-      self.column_widths = {0 => 50, 1 => 65, 2 => 280, 3 => 65, 4 => 75}
+      self.column_widths = {0 => 50, 1 => 65, 2 => 275, 3 => 70, 4 => 75}
     end
   end
 
@@ -48,17 +47,17 @@ class InvoicePdf < Prawn::Document
     [["Qty", "Date", "Description", "Rate", "Amount"]] +
         @invoice.entries.map do |entry|
           [
-              entry.qty,
+              precision(entry.qty),
               entry.done_at.strftime("%m/%d/%y"),
               "#{entry.task.project.name} > #{entry.task.name}",
-              precision(entry.rate),
-              precision(entry.qty * entry.rate)
+              '$' + precision(entry.rate),
+              '$' + precision(entry.qty * entry.rate)
           ]
         end
   end
 
   def total
-    table ([["Total", precision(@invoice.total)]]), :width => 535 do
+    table ([["Total", '$' + precision(@invoice.total)]]), :width => 535 do
       columns(0).align = :right
       columns(1).align = :left
       self.header = true
@@ -70,9 +69,9 @@ class InvoicePdf < Prawn::Document
   def footer
     move_down 25
     text "Make Checks Payable To:", style: :bold
-    text "User"
-    text "Street..."
-    text "City"
+    text Settings.get('invoice_name')
+    text Settings.get('invoice_address1')
+    text '%s, %s %s' % [Settings.get('invoice_city'), Settings.get('invoice_state'), Settings.get('invoice_zip')]
   end
 
 end

@@ -34,16 +34,6 @@ class InvoicesController < ApplicationController
 
   def show
     @invoice = Invoice.find(params[:id])
-
-    respond_to do |format|
-      format.html
-      format.pdf do
-        pdf = InvoicePdf.new(@invoice, view_context)
-        # File.open('test.pdf', 'w') { |file| file.write(pdf.render) }
-        send_data pdf.render, filename:
-            "invoice_#{@invoice.created_at.strftime("%Y-%m-%d")}.pdf", type: "application/pdf"
-      end
-    end
   end
 
   def edit
@@ -72,20 +62,17 @@ class InvoicesController < ApplicationController
 
   def compose
     @invoice = Invoice.find(params[:id])
+    @invoice.genpdf
   end
 
   def notify
 
-    require 'net/smtp'
-    msg = "Subject: %s\n\n%s" % [request[:subject], request[:body]]
-    smtp = Net::SMTP.new 'smtp.gmail.com', 587
-    smtp.enable_starttls
-    smtp.start('gmail.com', 'matthew.p.crowe@gmail.com', 'tosaotpsixglbhso', :login) do
-      smtp.send_message(msg, 'matthew.p.crowe@gmail.com', request[:email])
-    end
+    @invoice = Invoice.find(params[:id])
+
+    InvoiceMailer.invoice_email(@invoice, request[:email], request[:subject], request[:body]).deliver
 
     flash[:success] = "success! invoice has been sent"
-    redirect_to invoice_path(9)
+    redirect_to invoice_path(params[:id])
 
   end
 
