@@ -214,4 +214,5 @@ public/assets/**/css
 /log/*.log
 /tmp
 
+invoices/
 config/appdata.yml
