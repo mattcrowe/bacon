@@ -1,9 +1,5 @@
 class ClientsController < ApplicationController
 
-  # http_basic_authenticate_with name: "dhh", password: "secret", except: [:index, :show]
-
-
-
   def index
     @clients = Client.order(:name).all
   end
@@ -12,13 +8,11 @@ class ClientsController < ApplicationController
     @client = Client.new
   end
 
-  def show
-    @client = Client.find(params[:id])
-    @project = Project.new
+  def client_params
+    params.require(:client).permit(:name, :contact, :email, :rate)
   end
 
   def create
-    #render plain: params[:client].inspect
     @client = Client.new(client_params)
 
     if @client.save
@@ -27,6 +21,11 @@ class ClientsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def show
+    @client = Client.find(params[:id])
+    @project = Project.new
   end
 
   def edit
@@ -50,12 +49,6 @@ class ClientsController < ApplicationController
 
     flash[:success] = "success! client has been deleted"
     redirect_to clients_path
-  end
-
-  private
-
-  def client_params
-    params.require(:client).permit(:name, :contact, :email, :rate)
   end
 
 end

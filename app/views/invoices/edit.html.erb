@@ -1,5 +1,5 @@
 <% content_for :crumbs do %>
-<%= render 'crumb_all' %>
+<%= render 'crumbs' %>
 <li class="pull-right"><%= ibtn_link_to('cancel', invoice_path(@invoice)) %></li>
 <li class="pull-right"><%= ibtn_link_to_save('edit_invoice_' + @invoice.id.to_s) %></li>
 <% end %>

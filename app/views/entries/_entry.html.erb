@@ -1,0 +1,21 @@
+<tr>
+  <td class="entry_id"><%= entry.id %></td>
+  <td class="entry_client"><%= link_to(entry.task.project.client, client_path(entry.task.project.client)) %></td>
+  <td class="entry_project"><%= link_to(entry.task.project, project_path(entry.task.project)) %></td>
+  <td class="entry_task"><%= link_to(entry.task, task_path(entry.task)) %></td>
+  <td class="entry_invoice">
+    <%= link_to(entry.invoice, invoice_path(entry.invoice)) if entry.invoice.present? %>
+    <%= "~" if entry.invoice.blank? %>
+  </td>
+  <td class="entry_rate"><%= number_to_currency(entry.rate) %></td>
+  <td class="entry_qty"><%= entry.qty %></td>
+  <td class="entry_total"><%= number_to_currency(entry.qty * entry.rate) %></td>
+  <td class="entry_done_at"><%= entry.done_at.strftime('%m/%d/%Y') %></td>
+  <td class="action">
+    <div class="dropdown btn-group">
+      <a href="<%= entry_path(entry) %>" class="btn">OPEN</a>
+      <a href="#" class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+      <%= render 'entries/crumb', entry: entry %>
+    </div>
+  </td>
+</tr>

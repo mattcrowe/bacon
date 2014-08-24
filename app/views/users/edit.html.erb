@@ -1,5 +1,5 @@
 <% content_for :crumbs do %>
-<%= render 'crumb_all' %>
+<%= render 'crumbs' %>
 <li class="pull-right"><%= ibtn_link_to('cancel', user_path(@user)) %></li>
 <li class="pull-right"><%= ibtn_link_to_save('edit_user_' + @user.id.to_s) %></li>
 <% end %>

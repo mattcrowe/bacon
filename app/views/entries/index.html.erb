@@ -1,5 +1,5 @@
 <% content_for :crumbs do %>
-    <%= render 'crumb_all' %>
+    <%= render 'crumbs' %>
     <li class="pull-right"><%= ibtn_link_to('add', new_entry_path) %></li>
 
     <% if request[:client_id].present? && request[:invoiced] == 'no' %>
@@ -24,12 +24,12 @@
 
   <div class="form-group">
     <label for="from">From</label>
-    <input type="date" class="form-control" id="from" name="from" value="<%= request[:from] %>" placeholder="Start Date"/>
+    <input type="date" class="form-control" id="from" name="from" value="<%= request[:from] %>" />
   </div>
 
   <div class="form-group">
     <label for="to">To</label>
-    <input type="date" class="form-control" id="to" name="to" value="<%= request[:to] %>" placeholder="Start Date"/>
+    <input type="date" class="form-control" id="to" name="to" value="<%= request[:to] %>" />
   </div>
 
   <button type="submit" class="btn">filter</button>
@@ -64,18 +64,7 @@
 
           <input type="hidden" name="entry[<%= i %>]" value="<%= entry.id %>"/>
 
-          <tr>
-            <td><%= entry.id %></td>
-            <td><%= entry.task.project.client %></td>
-            <td><%= entry.task.project %></td>
-            <td><%= entry.task %></td>
-            <td><%= entry.invoice %></td>
-            <td><%= entry.rate %></td>
-            <td><%= entry.qty %></td>
-            <td><%= number_to_currency(entry.qty * entry.rate) %></td>
-            <td><%= entry.done_at.strftime('%m/%d/%Y') %></td>
-            <td><%= ibtn_link_to('OPEN', entry_path(entry)) %></td>
-          </tr>
+          <%= render entry %>
 
           <% i += 1 %>
       <% end %>

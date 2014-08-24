@@ -1,0 +1,11 @@
+<ul class="dropdown-menu" role="menu">
+  <li><%= ilink_to('Edit', edit_project_path(project)) %></li>
+  <li class="divider"></li>
+  <li><a href="<%= tasks_path %>?project_id=<%= project.id %>"><i class="i-list"></i>Tasks</a></li>
+  <li><a href="<%= entries_path %>?project_id=<%= project.id %>"><i class="i-list"></i>Entries</a></li>
+  <li><a href="<%= invoices_path %>?project_id=<%= project.id %>"><i class="i-list"></i>Invoices</a></li>
+  <li class="divider"></li>
+  <li><a href="<%= client_path(project.client) %>"><i class="i-open"></i>Client</a></li>
+  <li class="divider"></li>
+  <li><%= ilink_to_destroy(project_path(project)) %></li>
+</ul>

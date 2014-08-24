@@ -1,25 +1,18 @@
 <% content_for :crumbs do %>
-<%= render 'crumb_all' %>
-<li class="pull-right"><%= ibtn_link_to('add', new_project_path) %></li>
+    <%= render 'crumbs' %>
+    <li class="pull-right"><%= ibtn_link_to('add', new_project_path) %></li>
 <% end %>
 
 <div class="table-responsive">
-    <table class="table">
-        <tr>
-            <th>Id</th>
-            <th>Client</th>
-            <th>Name</th>
-            <th></th>
-        </tr>
+  <table class="projects index">
+    <tr>
+      <th>Id</th>
+      <th>Client</th>
+      <th>Name</th>
+      <th></th>
+    </tr>
 
-        <% @projects.each do |project| %>
-        <tr>
-            <td><%= project.id %></td>
-            <td><%= project.client %></td>
-            <td><%= project.name %></td>
-            <td><%= ibtn_link_to('OPEN', project_path(project)) %></td>
-        </tr>
-        <% end %>
+    <%= render @projects %>
 
-    </table>
+  </table>
 </div>

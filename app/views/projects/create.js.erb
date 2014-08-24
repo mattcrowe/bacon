@@ -1,3 +1,9 @@
-console.log(111);
-$('#projects').append("<%=escape_javascript(render 'project') %>");
-console.log(222);
+<%
+# project_html = render @project
+
+a = []
+#a << {:mode => 'html', :target => '#alerts', :html => content_tag(:div, 'success! new project has been created', class: 'alert alert-success') }
+a << {:mode => 'append', :target => 'table.projects', :html => render(@project)}
+
+concat a.to_json.html_safe
+%>

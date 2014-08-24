@@ -1,0 +1,12 @@
+<tr>
+  <td class="project_id"><%= project.id %></td>
+  <td class="project_client"><%= link_to(project.client, client_path(project.client)) %></td>
+  <td class="project_name"><%= project.name %></td>
+  <td class="action">
+    <div class="dropdown btn-group">
+      <a href="<%= project_path(project) %>" class="btn">OPEN</a>
+      <a href="#" class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+      <%= render 'projects/crumb', project: project %>
+    </div>
+  </td>
+</tr>

@@ -7,53 +7,7 @@
     <li class="pull-right"><%= ibtn_link_to('edit', edit_client_path(@client)) %></li>
 <% end %>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Client: <%= @client.name %></h3>
-  </div>
-  <div class="panel-body">
-    <div class="col-sm-4">
-      <ul class="definitions">
-        <li>
-          <h6>Contact</h6>
-          <span><%= @client.contact %></span>
-        </li>
-        <li>
-          <h6>Email</h6>
-          <span><%= @client.email %></span>
-        </li>
-        <li>
-          <h6>Rate</h6>
-          <span><%= @client.rate %></span>
-        </li>
-      </ul>
-    </div>
-    <div class="col-sm-4">
-      <ul class="definitions">
-        <li>
-          <h6>Address 1</h6>
-          <span><%= @client.address1 %></span>
-        </li>
-        <li>
-          <h6>Address 2</h6>
-          <span><%= @client.address2 %></span>
-        </li>
-        <li>
-          <h6>City</h6>
-          <span><%= @client.city %></span>
-        </li>
-        <li>
-          <h6>State</h6>
-          <span><%= @client.state %></span>
-        </li>
-        <li>
-          <h6>Zip</h6>
-          <span><%= @client.zip %></span>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+<%= render @client %>
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -61,33 +15,17 @@
   </div>
   <div class="panel-body">
     <div class="col-sm-6">
-      <%= form_for [@project], remote: true, html: {class: "form-inline"} do |f| %>
+      <%= form_for [@project], html: {class: "form-inline get-json"} do |f| %>
           <input type="hidden" name="project[client_id]" value="<%= @client.id %>"/>
-
           <div class="form-group">
             <%= f.text_field :name, placeholder: 'New Project Name' %>
           </div>
           <button type="submit" class="btn"><i class="i-add"></i> <span>add</span></button>
       <% end %>
     </div>
-    <table id="projects" class="table">
-      <% @client.projects.each do |project| %>
-          <tr>
-            <td><%= project.name %></td>
-            <td class="tright">
-              <div class="dropdown btn-group">
-                <a href="<%#= client_project_path(@client, project) %>" class="btn">OPEN</a>
-                <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
-                  <span class="caret"></span></a>
-                <%#= render 'projects/crumb_one', project: project %>
-              </div>
-            </td>
-          </tr>
-      <% end %>
+    <table class="projects panel">
+      <%= render @client.projects %>
     </table>
-
-    <div id="projects2">projects2</div>
-    <div id="asdf">asdf</div>
   </div>
 </div>
 

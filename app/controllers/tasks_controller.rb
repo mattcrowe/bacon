@@ -33,16 +33,20 @@ class TasksController < ApplicationController
 
     @task = Task.new(task_params)
 
-    if @task.save
-      flash[:success] = "success! new task has been created"
-      redirect_to @task
-    else
-      render 'new'
+    respond_to do |format|
+      if @task.save
+        format.html { redirect_to @task, notice: 'success! new task has been created' }
+        format.js {}
+      else
+        format.html { render action: "new" }
+        format.json { render json: @task.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def show
     @task = Task.find(params[:id])
+    @entry = Entry.new
   end
 
   def edit
@@ -68,7 +72,5 @@ class TasksController < ApplicationController
     flash[:success] = "success! task has been deleted"
     redirect_to tasks_path
   end
-
-  private
 
 end

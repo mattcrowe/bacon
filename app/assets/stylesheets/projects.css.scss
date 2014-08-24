@@ -1,3 +1,9 @@
 // Place all the styles related to the Projects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.tasks.panel {
+  .task_id { display: none; }
+  .task_client { display: none; }
+  .task_project { display: none; }
+}

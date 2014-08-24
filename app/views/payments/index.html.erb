@@ -1,27 +1,27 @@
 <% content_for :crumbs do %>
-<%= render 'crumb_all' %>
-<li class="pull-right"><%= ibtn_link_to('add', new_payment_path) %></li>
+    <%= render 'crumbs' %>
+    <li class="pull-right"><%= ibtn_link_to('add', new_payment_path) %></li>
 <% end %>
 
 <div class="table-responsive">
-    <table class="table">
-        <tr>
-            <th>Id</th>
-            <th>Client</th>
-            <th>Total</th>
-            <th>Paid At</th>
-            <th></th>
-        </tr>
+  <table class="table">
+    <tr>
+      <th>Id</th>
+      <th>Client</th>
+      <th>Total</th>
+      <th>Paid At</th>
+      <th></th>
+    </tr>
 
-        <% @payments.each do |payment| %>
+    <% @payments.each do |payment| %>
         <tr>
-            <td><%= payment.id %></td>
-            <td><%= payment.client %></td>
-            <td><%= number_to_currency(payment.total) %></td>
-            <td><%= payment.paid_at %></td>
-            <td><%= ibtn_link_to('OPEN', payment_path(payment)) %></td>
+          <td><%= payment.id %></td>
+          <td><%= payment.client %></td>
+          <td><%= number_to_currency(payment.total) %></td>
+          <td><%= payment.paid_at %></td>
+          <td class="action"><%= ibtn_link_to('OPEN', payment_path(payment)) %></td>
         </tr>
-        <% end %>
+    <% end %>
 
-    </table>
+  </table>
 </div>

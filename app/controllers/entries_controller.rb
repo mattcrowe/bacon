@@ -45,18 +45,21 @@ class EntriesController < ApplicationController
   end
 
   def entry_params
-    params.require(:entry).permit(:task_id, :name)
+    params.require(:entry).permit(:task_id, :qty, :done_at, :rate)
   end
 
   def create
 
     @entry = Entry.new(entry_params)
 
-    if @entry.save
-      flash[:success] = "success! new entry has been created"
-      redirect_to @entry
-    else
-      render 'new'
+    respond_to do |format|
+      if @entry.save
+        format.html { redirect_to @entry, notice: 'success! new entry has been created' }
+        format.js {}
+      else
+        format.html { render action: "new" }
+        format.json { render json: @entry.errors, status: :unprocessable_entity }
+      end
     end
   end
 

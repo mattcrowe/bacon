@@ -1,18 +1,71 @@
 <% content_for :crumbs do %>
-    <%= render 'crumb_all' %>
-    <%= render 'crumb_one', object: @entry %>
+    <%= render 'crumbs' %>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= @entry.task %> <span class="caret"></span></a>
+      <%= render 'crumb', entry: @entry %>
+    </li>
     <li class="pull-right"><%= ibtn_link_to('edit', edit_entry_path(@entry)) %></li>
 <% end %>
 
-<dl class="dl-horizontal">
-  <dt>Id</dt>
-  <dd><%= @entry.id %></dd>
-  <dt>Task</dt>
-  <dd><%= @entry.task %></dd>
-  <dt>Qty</dt>
-  <dd><%= @entry.qty %></dd>
-  <dt>Rate</dt>
-  <dd><%= @entry.rate %></dd>
-  <dt>Done At</dt>
-  <dd><%= @entry.done_at %></dd>
-</dl>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Entry</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-4">
+      <ul class="definitions">
+        <li>
+          <h6>Client</h6>
+          <span><%= link_to(@entry.task.project.client, client_path(@entry.task.project.client)) %></span>
+        </li>
+        <li>
+          <h6>Project</h6>
+          <span><%= link_to(@entry.task.project, project_path(@entry.task.project)) %></span>
+        </li>
+        <li>
+          <h6>Task</h6>
+          <span><%= link_to(@entry.task, task_path(@entry.task)) %></span>
+        </li>
+        <li>
+          <h6>Invoice</h6>
+          <span>
+            <%= link_to(@entry.invoice, invoice_path(@entry.invoice)) if @entry.invoice.present? %>
+            <%= "~" if @entry.invoice.blank? %>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <ul class="definitions">
+        <li>
+          <h6>Qty</h6>
+          <span><%= @entry.qty %></span>
+        </li>
+        <li>
+          <h6>Rate</h6>
+          <span><%= number_to_currency(@entry.rate) %></span>
+        </li>
+        <li>
+          <h6>Total</h6>
+          <span><%= number_to_currency(@entry.rate * @entry.qty) %></span>
+        </li>
+        <li>
+          <h6>Done At</h6>
+          <span><%= l @entry.done_at %></span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <ul class="definitions">
+        <li>
+          <h6>Created</h6>
+          <span><%= l @entry.created_at %></span>
+        </li>
+        <li>
+          <h6>Updated</h6>
+          <span><%= l @entry.updated_at %></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,37 +1,71 @@
 <% content_for :crumbs do %>
-    <%= render 'crumb_all' %>
-    <%= render 'crumb_one', object: @invoice %>
+    <%= render 'crumbs' %>
+    <%= render 'crumb', object: @invoice %>
     <li class="pull-right"><%= ibtn_link_to('edit', edit_invoice_path(@invoice)) %></li>
 <% end %>
 
-<dl class="dl-horizontal">
-    <dt>Id</dt>
-    <dd><%= @invoice.id %></dd>
-    <dt>Client</dt>
-    <dd><%= @invoice.client %></dd>
-</dl>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Invoice</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-6">
+      <ul class="definitions">
+        <li>
+          <h6>Client</h6>
+          <span><%= link_to(@invoice.client, client_path(@invoice.client)) %></span>
+        </li>
+        <li>
+          <h6>Starts At</h6>
+          <span><%= l @invoice.starts_at %></span>
+        </li>
+        <li>
+          <h6>Ends At</h6>
+          <span><%= l @invoice.ends_at %></span>
+        </li>
+        <li>
+          <h6>Total</h6>
+          <span><%= number_to_currency(@invoice.total) %></span>
+        </li>
+        <li>
+          <h6>Paid</h6>
+          <span><%= @invoice.paid ? 'Yes' : 'No' %></span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <ul class="definitions">
+        <li>
+          <h6>Created</h6>
+          <span><%= l @invoice.created_at %></span>
+        </li>
+        <li>
+          <h6>Updated</h6>
+          <span><%= l @invoice.updated_at %></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-<div class="table-responsive">
-  <table class="table">
-    <tr>
-      <th>Project</th>
-      <th>Task</th>
-      <th>Qty</th>
-      <th>Rate</th>
-      <th>Done At</th>
-      <th></th>
-    </tr>
-
-    <% @invoice.entries.each do |entry| %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Entries</h3>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table class="invoice entries panel">
         <tr>
-          <td><%= entry.task.project %></td>
-          <td><%= entry.task %></td>
-          <td><%= entry.qty %></td>
-          <td><%= entry.rate %></td>
-          <td><%= entry.done_at.strftime('%m/%d/%Y') %></td>
-          <td><%= ibtn_link_to('OPEN', entry_path(entry)) %></td>
+          <th>Project</th>
+          <th>Task</th>
+          <th>Rate</th>
+          <th>Qty</th>
+          <th>Total</th>
+          <th>Done At</th>
+          <th></th>
         </tr>
-    <% end %>
-
-  </table>
+        <%= render @invoice.entries %>
+      </table>
+    </div>
+  </div>
 </div>

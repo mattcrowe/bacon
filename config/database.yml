@@ -19,7 +19,7 @@ default: &default
 
 development:
   <<: *default
-  database: bacon_development
+  database: cheddar_development
   socket: /Applications/MAMP/tmp/mysql/mysql.sock
   password: root
 
@@ -28,7 +28,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: bacon_test
+  database: cheddar_test
   password: root
   socket: /Applications/MAMP/tmp/mysql/mysql.sock
 
@@ -53,6 +53,6 @@ test:
 #
 production:
   <<: *default
-  database: bacon_production
-  username: bacon
-  password: <%= ENV['BACON_DATABASE_PASSWORD'] %>
+  database: cheddar_production
+  username: cheddar
+  password: <%= ENV['CHEDDAR_DATABASE_PASSWORD'] %>

@@ -1,6 +1,6 @@
 <% content_for :crumbs do %>
-    <%= render 'crumb_all' %>
-    <%= render 'crumb_one', object: @payment %>
+    <%= render 'crumbs' %>
+    <%= render 'crumb', object: @payment %>
     <li class="pull-right"><%= ibtn_link_to('edit', edit_payment_path(@payment)) %></li>
 <% end %>
 

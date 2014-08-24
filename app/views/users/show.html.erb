@@ -1,6 +1,6 @@
 <% content_for :crumbs do %>
-    <%= render 'crumb_all' %>
-    <%= render 'crumb_one', object: @user %>
+    <%= render 'crumbs' %>
+    <%= render 'crumb', object: @user %>
     <li class="pull-right"><%= ibtn_link_to('edit', edit_user_path(@user)) %></li>
 <% end %>
 

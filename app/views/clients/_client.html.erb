@@ -1,0 +1,60 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Client: <%= client.name %></h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-6">
+      <ul class="definitions">
+        <li>
+          <h6>Contact</h6>
+          <span><%= client.contact %></span>
+        </li>
+        <li>
+          <h6>Email</h6>
+          <span><%= client.email %></span>
+        </li>
+        <li>
+          <h6>Rate</h6>
+          <span><%= number_to_currency(client.rate) %></span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <ul class="definitions">
+        <li>
+          <h6>Address 1</h6>
+          <span><%= client.address1 %></span>
+        </li>
+        <li>
+          <h6>Address 2</h6>
+          <span><%= client.address2 %></span>
+        </li>
+        <li>
+          <h6>City</h6>
+          <span><%= client.city %></span>
+        </li>
+        <li>
+          <h6>State</h6>
+          <span><%= client.state %></span>
+        </li>
+        <li>
+          <h6>Zip</h6>
+          <span><%= client.zip %></span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6 col-sm-offset-6">
+      <ul class="definitions">
+        <li>
+          <h6>Created</h6>
+          <span><%= l client.created_at %></span>
+        </li>
+        <li>
+          <h6>Updated</h6>
+          <span><%= l client.updated_at %></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

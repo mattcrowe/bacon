@@ -2,7 +2,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
   def change
     create_table(:users) do |t|
 
-      ## Bacon
+      ## Cheddar
       # t.string :name
       # t.string :address1
       # t.string :address2

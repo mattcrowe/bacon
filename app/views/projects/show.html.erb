@@ -1,14 +1,52 @@
 <% content_for :crumbs do %>
-    <%= render 'crumb_all' %>
-    <%= render 'crumb_one', object: @project %>
+    <%= render 'crumbs' %>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= @project.name %> <span class="caret"></span></a>
+      <%= render 'crumb', project: @project %>
+    </li>
     <li class="pull-right"><%= ibtn_link_to('edit', edit_project_path(@project)) %></li>
 <% end %>
 
-<dl class="dl-horizontal">
-    <dt>Id</dt>
-    <dd><%= @project.id %></dd>
-    <dt>Client</dt>
-    <dd><%= @project.client %></dd>
-    <dt>Name</dt>
-    <dd><%= @project.name %></dd>
-</dl>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Project: <%= @project.name %></h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-6">
+      <ul class="definitions">
+        <li>
+          <h6>Name</h6>
+          <span><%= @project.name %></span>
+        </li>
+        <li>
+          <h6>Created</h6>
+          <span><%= l @project.created_at %></span>
+        </li>
+        <li>
+          <h6>Updated</h6>
+          <span><%= l @project.updated_at %></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Tasks</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-6">
+      <%= form_for [@task], html: {class: "form-inline get-json"} do |f| %>
+          <input type="hidden" name="task[project_id]" value="<%= @project.id %>"/>
+          <div class="form-group">
+            <%= f.text_field :name, placeholder: 'New Task Name' %>
+          </div>
+          <button type="submit" class="btn"><i class="i-add"></i> <span>add</span></button>
+      <% end %>
+    </div>
+    <table class="tasks panel">
+      <%= render @project.tasks %>
+    </table>
+  </div>
+</div>

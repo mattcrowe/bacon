@@ -1,0 +1,5 @@
+<%
+a = []
+a << {:mode => 'append', :target => 'table.tasks', :html => render(@task)}
+concat a.to_json.html_safe
+%>

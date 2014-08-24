@@ -21,14 +21,6 @@
 
 body { padding-top: 50px }
 
-//.red { color: #d9534f }
-//.blue { color: #428bca }
-//.green { color: #5cb85c }
-
-.tright {
-  text-align: right;
-}
-
 .btn {
   @extend .btn-default;
   @extend .btn-xs;
@@ -72,6 +64,9 @@ body { padding-top: 50px }
 
 table.panel {
   @extend .table;
+  td.action {
+    text-align: right;
+  }
 }
 
 table.index {
@@ -81,15 +76,12 @@ table.index {
   @extend .table-hover;
   border: 1px solid #ddd;
   border-collapse: collapse;
-  a.btn {
-    @extend .btn-default;
-    @extend .btn-xs;
+  td.action {
+    text-align: right;
   }
 }
 
-
-
-table td.tright ul.dropdown-menu {
+table td.action ul.dropdown-menu {
   @extend .dropdown-menu-right;
 }
 
@@ -131,6 +123,7 @@ ul.definitions {
       text-align: left;
       margin:0;
       padding:0;
+      vertical-align: top;
     }
     span {
       width:49%;
@@ -140,6 +133,7 @@ ul.definitions {
       text-align: left;
       margin:0;
       padding:0;
+      word-wrap: break-word;
     }
   }
 
