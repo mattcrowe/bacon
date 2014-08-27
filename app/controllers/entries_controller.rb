@@ -6,26 +6,31 @@ class EntriesController < ApplicationController
 
     q = Entry.order(:done_at)
 
-    unless request[:client_id].blank?
+    if request[:client_id].present?
       q = q.joins(task: [{project: :client}])
       q = q.where("client_id = ?", request[:client_id])
     end
 
-    if request.GET.include? "project_id"
+    if request[:project_id].present?
       q = q.joins(task: [{project: :client}])
       q = q.where("project_id = ?", request[:project_id])
     end
 
-    q = q.where("task_id = ?", request[:task_id]) unless request[:task_id].blank?
-    q = q.where("invoice_id = ?", request[:invoice_id]) unless request[:invoice_id].blank?
+    if request[:task_id].present?
+      q = q.where("task_id = ?", request[:task_id])
+    end
 
+    if request[:invoice_id].present?
+      q = q.where("invoice_id = ?", request[:invoice_id])
+    end
 
+    # possibly filter by whether entry has been invoiced
+    q = q.where("invoice_id IS NULL") if request[:invoiced] == 'yes'
     q = q.where("invoice_id IS NULL") if request[:invoiced] == 'no'
-    q = q.where("invoice_id IS NOT NULL") if request[:invoiced] == 'yes'
 
     # set date range if it exists
-    q = q.where("done_at >= ?", request[:from]) unless request[:from].blank?
-    q = q.where("done_at <= ?", request[:to]) unless request[:to].blank?
+    q = q.where("done_at >= ?", request[:from]) if request[:from].present?
+    q = q.where("done_at <= ?", request[:to]) if request[:to].present?
 
     @entries = q.all
 

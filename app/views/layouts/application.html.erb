@@ -11,7 +11,7 @@
   <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
 </head>
 <body class="admin">
@@ -65,6 +65,6 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <!-- Latest compiled and minified JavaScript -->
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
 </body>
 </html>

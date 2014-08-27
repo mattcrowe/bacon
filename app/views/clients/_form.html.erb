@@ -21,7 +21,7 @@
 
       <div class="form-group">
         <%= f.label :contact %>
-        <%= f.text_field :contact %>
+        <%= f.text_field :contact, :maxlength => 50 %>
       </div>
 
       <div class="form-group">
@@ -50,17 +50,17 @@
 
       <div class="form-group">
         <%= f.label :city %>
-        <%= f.text_field :city %>
+        <%= f.text_field :city, :maxlength => 50 %>
       </div>
 
       <div class="form-group">
         <%= f.label :state %>
-        <%= f.text_field :state %>
+        <%= f.text_field :state, :maxlength => 2 %>
       </div>
 
       <div class="form-group">
         <%= f.label :zip %>
-        <%= f.text_field :rate %>
+        <%= f.text_field :zip, :maxlength => 10 %>
       </div>
     </div>
 

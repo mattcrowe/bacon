@@ -4,10 +4,9 @@ class CreateInvoices < ActiveRecord::Migration
       t.references :client, index: true
       t.references :user, index: true
       t.decimal :total, :precision => 10, :scale => 2
-      t.decimal :paid, :precision => 10, :scale => 2
+      t.boolean :paid
       t.date :starts_at
       t.date :ends_at
-      t.date :paid_at
       t.timestamps
     end
   end

@@ -54,7 +54,11 @@ body { padding-top: 50px }
   background-color: #F8F8F8;
   border-bottom: 1px solid #ccc;
   li.pull-right {
-    margin:0 5px 0 0;
+    margin:0 5px 0 5px;
+    a {
+      display: inline;
+      padding: 3px 7px;
+    }
   };
   li.pull-right:before {
     padding:0;

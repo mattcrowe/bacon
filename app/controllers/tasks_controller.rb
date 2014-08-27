@@ -5,16 +5,9 @@ class TasksController < ApplicationController
     task = Task
 
     if request[:project_id].present?
-
       task = task.where("project_id = ?", request[:project_id])
-
-      @project = Project.find(request[:project_id])
-      @task = Task.new
-
     elsif request[:client_id].present?
-
       task = task.joins(project: :client).where("client_id = ?", request[:client_id])
-
     end
 
     @tasks = task.all

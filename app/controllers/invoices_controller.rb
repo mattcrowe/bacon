@@ -1,14 +1,22 @@
 class InvoicesController < ApplicationController
 
   def index
-    q = Invoice
-    q = q.where("client_id = ?", request[:client_id]) if request.GET.include? "client_id"
-    if request.GET.include? "project_id"
-      q = q.joins(client: :projects).where("projects.id = ?", request[:project_id])
-    end
-    q = q.joins(:entries).where("entries.task_id = ?", request[:task_id]) if request.GET.include? "task_id"
 
-    @invoices = q.all
+    invoice = Invoice
+
+    if request[:client_id].present?
+      invoice = invoice.where("client_id = ?", request[:client_id])
+    end
+
+    if request[:project_id].present?
+      invoice = invoice.joins(client: :projects).where("projects.id = ?", request[:project_id])
+    end
+
+    if request[:task_id].present?
+      invoice = invoice.joins(:entries).where("entries.task_id = ?", request[:task_id])
+    end
+
+    @invoices = invoice.all
   end
 
   def new
@@ -17,7 +25,7 @@ class InvoicesController < ApplicationController
   end
 
   def invoice_params
-    params.require(:invoice).permit(:client_id, :name)
+    params.require(:invoice).permit(:client_id, :total, :starts_at, :ends_at, :paid)
   end
 
   def create

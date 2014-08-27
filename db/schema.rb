@@ -15,14 +15,14 @@ ActiveRecord::Schema.define(version: 20140821191207) do
 
   create_table "clients", force: true do |t|
     t.string   "name"
-    t.decimal  "rate",       precision: 10, scale: 0
-    t.string   "contact"
+    t.decimal  "rate",                  precision: 10, scale: 0
+    t.string   "contact",    limit: 50
     t.string   "email"
     t.string   "address1"
     t.string   "address2"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
+    t.string   "city",       limit: 50
+    t.string   "state",      limit: 2
+    t.string   "zip",        limit: 10
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -44,10 +44,9 @@ ActiveRecord::Schema.define(version: 20140821191207) do
     t.integer  "client_id"
     t.integer  "user_id"
     t.decimal  "total",      precision: 10, scale: 2
-    t.decimal  "paid",       precision: 10, scale: 2
+    t.boolean  "paid"
     t.date     "starts_at"
     t.date     "ends_at"
-    t.date     "paid_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

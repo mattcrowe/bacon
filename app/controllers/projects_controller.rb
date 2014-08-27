@@ -1,11 +1,13 @@
 class ProjectsController < ApplicationController
 
   def index
-    q = Project
+    project = Project
 
-    q = q.where("client_id = ?", request[:client_id]) if request.GET.include? "client_id"
+    if request[:client_id].present?
+      project = project.where("client_id = ?", request[:client_id])
+    end
 
-    @projects = q.all
+    @projects = project.all
   end
 
   def new
@@ -60,7 +62,7 @@ class ProjectsController < ApplicationController
     @project.destroy
 
     flash[:success] = "success! project has been deleted"
-    redirect_to :back
+    redirect_to projects_path
   end
 
 end

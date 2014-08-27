@@ -1,14 +1,12 @@
 <ul class="dropdown-menu" role="menu">
+  <li><%= ilink_to('Edit', edit_entry_path(entry)) %></li>
+  <li class="divider"></li>
   <li><a href="<%= client_path(entry.task.project.client) %>"><i class="i-open"></i>Client</a></li>
   <li><a href="<%= project_path(entry.task.project) %>"><i class="i-open"></i>Project</a></li>
   <li><a href="<%= task_path(entry.task) %>"><i class="i-open"></i>Task</a></li>
-
   <% if entry.invoice %>
       <li><a href="<%= invoice_path(entry.invoice) %>"><i class="i-open"></i>Invoice</a></li>
   <% end %>
-
-  <li class="divider"></li>
-  <li><%= ilink_to('Edit', edit_entry_path(entry)) %></li>
   <li class="divider"></li>
   <li><%= ilink_to_destroy(entry_path(entry)) %></li>
 </ul>

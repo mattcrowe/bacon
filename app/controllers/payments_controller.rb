@@ -1,11 +1,13 @@
 class PaymentsController < ApplicationController
 
   def index
-    q = Payment
+    payment = Payment
 
-    q = q.where("client_id = ?", request[:client_id]) if request.GET.include? "client_id"
+    if request[:client_id].present?
+      payment = payment.where("client_id = ?", request[:client_id])
+    end
 
-    @payments = q.all
+    @payments = payment.all
   end
 
   def new
@@ -14,7 +16,7 @@ class PaymentsController < ApplicationController
   end
 
   def payment_params
-    params.require(:payment).permit(:client_id, :name)
+    params.require(:payment).permit(:client_id, :total, :paid_at)
   end
 
   def create

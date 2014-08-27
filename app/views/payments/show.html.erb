@@ -4,11 +4,38 @@
     <li class="pull-right"><%= ibtn_link_to('edit', edit_payment_path(@payment)) %></li>
 <% end %>
 
-<dl class="dl-horizontal">
-    <dt>Id</dt>
-    <dd><%= @payment.id %></dd>
-    <dt>Client</dt>
-    <dd><%= @payment.client %></dd>
-    <dt>Total</dt>
-    <dd><%= @payment.total %></dd>
-</dl>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">payment</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-6">
+      <ul class="definitions">
+        <li>
+          <h6>Client</h6>
+          <span><%= link_to(@payment.client, client_path(@payment.client)) %></span>
+        </li>
+        <li>
+          <h6>Total</h6>
+          <span><%= number_to_currency(@payment.total) %></span>
+        </li>
+        <li>
+          <h6>Paid</h6>
+          <span><%= @payment.paid_at ? 'Yes' : 'No' %></span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-6">
+      <ul class="definitions">
+        <li>
+          <h6>Created</h6>
+          <span><%= l @payment.created_at %></span>
+        </li>
+        <li>
+          <h6>Updated</h6>
+          <span><%= l @payment.updated_at %></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

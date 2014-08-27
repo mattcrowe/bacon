@@ -29,7 +29,7 @@
 
     <div class="form-group">
       <%= f.label :done_at %>
-      <%= f.text_field :done_at %>
+      <%= date_field_tag('entry[done_at]', Time.now.strftime('%Y-%m-%d')) %>
     </div>
 
 <% end %>
