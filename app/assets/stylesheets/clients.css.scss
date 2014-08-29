@@ -6,3 +6,8 @@ table.projects.panel {
   .project_id { display: none; }
   .project_client { display: none; }
 }
+
+table.client.payments.panel {
+  .payment_id { display: none; }
+  .payment_client { display: none; }
+}

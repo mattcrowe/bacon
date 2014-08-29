@@ -3,7 +3,7 @@ class CreatePayments < ActiveRecord::Migration
     create_table :payments do |t|
       t.references :client, index: true
       t.decimal :total, :precision => 10, :scale => 2
-      t.datetime :paid_at
+      t.date :paid_at
       t.timestamps
     end
   end

@@ -17,6 +17,7 @@
     <div class="col-sm-6">
       <%= form_for [@project], html: {class: "form-inline get-json"} do |f| %>
           <input type="hidden" name="project[client_id]" value="<%= @client.id %>"/>
+
           <div class="form-group">
             <%= f.text_field :name, placeholder: 'New Project Name' %>
           </div>
@@ -25,6 +26,34 @@
     </div>
     <table class="projects panel">
       <%= render @client.projects %>
+    </table>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Payments</h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-6">
+      <%= form_for [@payment], html: {class: "form-inline get-json"} do |f| %>
+          <input type="hidden" name="payment[client_id]" value="<%= @client.id %>"/>
+          <div class="form-group">
+            <%= f.text_field :total %>
+          </div>
+          <div class="form-group">
+            <%= date_field_tag('payment[paid_at]', Time.now.strftime('%Y-%m-%d')) %>
+          </div>
+          <button type="submit" class="btn"><i class="i-add"></i> <span>add</span></button>
+      <% end %>
+    </div>
+    <table class="client payments panel">
+      <tr>
+        <th>Total</th>
+        <th>Paid At</th>
+        <th></th>
+      </tr>
+      <%= render @client.payments %>
     </table>
   </div>
 </div>

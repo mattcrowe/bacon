@@ -2,7 +2,7 @@ class CreateClients < ActiveRecord::Migration
   def change
     create_table :clients do |t|
       t.string :name
-      t.decimal :rate
+      t.decimal :rate, :precision => 10, :scale => 2
       t.string :contact, :limit => 50
       t.string :email
       t.string :address1

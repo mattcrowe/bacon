@@ -4,7 +4,7 @@
 <% end %>
 
 <div class="table-responsive">
-  <table class="table">
+  <table class="index">
     <tr>
       <th>Id</th>
       <th>Email</th>
@@ -15,7 +15,14 @@
         <tr>
           <td><%= user.id %></td>
           <td><%= user.email %></td>
-          <td class="action"><%= ibtn_link_to('OPEN', user_path(user)) %></td>
+          <td class="action">
+            <div class="dropdown btn-group">
+              <a href="<%= user_path(user) %>" class="btn">OPEN</a>
+              <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span></a>
+              <%= render 'crumb', user: user %>
+            </div>
+          </td>
         </tr>
     <% end %>
 

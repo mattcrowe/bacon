@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
 user = User.create!(
     email: 'test@test.com',
     password: 'password'
@@ -15,6 +16,11 @@ user = User.create!(
     # city: 'Some City',
     # state: 'OH',
     # zip: '45000',
+)
+
+User.create!(
+    email: 'delete@test.com',
+    password: 'password'
 )
 
 def add_entries(client, task)

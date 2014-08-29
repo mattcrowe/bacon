@@ -1,0 +1,13 @@
+<tr>
+  <td class="payment_id"><%= payment.id %></td>
+  <td class="payment_client"><%= payment.client %></td>
+  <td class="payment_total"><%= number_to_currency(payment.total) %></td>
+  <td class="payment_paid_at"><%= payment.paid_at %></td>
+  <td class="action">
+    <div class="dropdown btn-group">
+      <a href="<%= payment_path(payment) %>" class="btn">OPEN</a>
+      <a href="#" class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+      <%= render 'payments/crumb', payment: payment %>
+    </div>
+  </td>
+</tr>

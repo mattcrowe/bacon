@@ -26,6 +26,7 @@ class ClientsController < ApplicationController
   def show
     @client = Client.find(params[:id])
     @project = Project.new
+    @payment = Payment.new
   end
 
   def edit

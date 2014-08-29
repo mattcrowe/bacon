@@ -13,15 +13,7 @@
       <th></th>
     </tr>
 
-    <% @payments.each do |payment| %>
-        <tr>
-          <td><%= payment.id %></td>
-          <td><%= payment.client %></td>
-          <td><%= number_to_currency(payment.total) %></td>
-          <td><%= payment.paid_at %></td>
-          <td class="action"><%= ibtn_link_to('OPEN', payment_path(payment)) %></td>
-        </tr>
-    <% end %>
+    <%= render @payments %>
 
   </table>
 </div>

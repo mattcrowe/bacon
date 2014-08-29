@@ -1,18 +1,73 @@
 <% content_for :crumbs do %>
     <%= render 'crumbs' %>
-    <%= render 'crumb', object: @user %>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= @user.email %> <span class="caret"></span></a>
+      <%= render 'crumb', user: @user %>
+    </li>
     <li class="pull-right"><%= ibtn_link_to('edit', edit_user_path(@user)) %></li>
 <% end %>
 
-<dl class="dl-horizontal">
-    <dt>Id</dt>
-    <dd><%= @user.id %></dd>
-    <dt>Name</dt>
-    <dd><%= @user.name %></dd>
-    <dt>Contact</dt>
-    <dd><%= @user.contact %></dd>
-    <dt>Email</dt>
-    <dd><%= @user.email %></dd>
-    <dt>Rate</dt>
-    <dd><%= @user.rate %></dd>
-</dl>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">User: <%= @user.email %></h3>
+  </div>
+  <div class="panel-body">
+    <div class="col-sm-4">
+      <ul class="definitions">
+        <li>
+          <h6>Id</h6>
+          <span><%= @user.id %></span>
+        </li>
+        <li>
+          <h6>Email</h6>
+          <span><%= @user.email %></span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <ul class="definitions">
+        <li>
+          <h6>Current IP</h6>
+          <span><%= @user.current_sign_in_ip %></span>
+        </li>
+        <li>
+          <h6>Last IP</h6>
+          <span><%= @user.last_sign_in_ip %></span>
+        </li>
+        <li>
+          <h6>Signin Count</h6>
+          <span><%= @user.sign_in_count %></span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <ul class="definitions">
+        <li>
+          <h6>Reset Password Sent At</h6>
+          <span><%= l @user.reset_password_sent_at if @user.reset_password_sent_at.present? %></span>
+        </li>
+        <li>
+          <h6>Remember Created At</h6>
+          <span><%= l @user.remember_created_at if @user.remember_created_at.present? %></span>
+        </li>
+        <li>
+          <h6>Current Signin At</h6>
+          <span><%= l @user.current_sign_in_at if @user.current_sign_in_at.present? %></span>
+        </li>
+        <li>
+          <h6>Last Signin At</h6>
+          <span><%= l @user.last_sign_in_at if @user.last_sign_in_at.present? %></span>
+        </li>
+        <li>
+          <h6>Created</h6>
+          <span><%= l @user.created_at %></span>
+        </li>
+        <li>
+          <h6>Updated</h6>
+          <span><%= l @user.updated_at %></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

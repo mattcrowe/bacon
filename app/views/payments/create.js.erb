@@ -1,0 +1,7 @@
+<%
+
+a = []
+a << {:mode => 'append', :target => 'table.payments', :html => render(@payment)}
+
+concat a.to_json.html_safe
+%>

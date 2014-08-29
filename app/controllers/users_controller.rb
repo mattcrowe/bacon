@@ -12,6 +12,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def user_params
+    params.require(:user).permit(:email, :password)
+  end
+
   def create
     @user = User.new(user_params)
 
@@ -44,12 +48,6 @@ class UsersController < ApplicationController
 
     flash[:success] = "success! user has been deleted"
     redirect_to users_path
-  end
-
-  private
-
-  def user_params
-    params.require(:user).permit(:name, :contact, :email, :rate)
   end
 
 end

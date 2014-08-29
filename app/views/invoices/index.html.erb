@@ -19,7 +19,13 @@
           <td><%= invoice.client %></td>
           <td><%= number_to_currency(invoice.total) %></td>
           <td><%= invoice.ends_at.strftime('%m/%d/%Y') %></td>
-          <td class="action"><%= ibtn_link_to('OPEN', invoice_path(invoice)) %></td>
+          <td class="action">
+            <div class="dropdown btn-group">
+              <a href="<%= invoice_path(invoice) %>" class="btn">OPEN</a>
+              <a href="#" class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+              <%= render 'invoices/crumb', invoice: invoice %>
+            </div>
+          </td>
         </tr>
     <% end %>
 

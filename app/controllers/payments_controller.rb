@@ -23,11 +23,14 @@ class PaymentsController < ApplicationController
 
     @payment = Payment.new(payment_params)
 
-    if @payment.save
-      flash[:success] = "success! new payment has been created"
-      redirect_to @payment
-    else
-      render 'new'
+    respond_to do |format|
+      if @payment.save
+        format.html { redirect_to @payment, notice: 'success! new payment has been created' }
+        format.js { }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @payment.errors, status: :unprocessable_entity }
+      end
     end
   end
 
