@@ -214,5 +214,8 @@ public/assets/**/css
 /log/*.log
 /tmp
 
+#unicorn
+unicorn.rb
+
 invoices/
 config/appdata.yml

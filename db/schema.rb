@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20140821191207) do
 
   create_table "clients", force: true do |t|
     t.string   "name"
-    t.decimal  "rate",                  precision: 10, scale: 0
+    t.decimal  "rate",                  precision: 10, scale: 2
     t.string   "contact",    limit: 50
     t.string   "email"
     t.string   "address1"
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 20140821191207) do
   create_table "entries", force: true do |t|
     t.integer  "task_id"
     t.integer  "invoice_id"
-    t.decimal  "qty",        precision: 10, scale: 0
-    t.decimal  "rate",       precision: 10, scale: 0
+    t.decimal  "qty",        precision: 5,  scale: 2
+    t.decimal  "rate",       precision: 10, scale: 2
     t.date     "done_at"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20140821191207) do
   create_table "payments", force: true do |t|
     t.integer  "client_id"
     t.decimal  "total",      precision: 10, scale: 2
-    t.datetime "paid_at"
+    t.date     "paid_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
