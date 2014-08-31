@@ -70,3 +70,4 @@ unicorn.rb
 
 invoices/
 config/appdata.yml
+config/database.yml
