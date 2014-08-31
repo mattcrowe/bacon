@@ -48,6 +48,11 @@ gem 'log_buddy'
 gem 'prawn'
 gem 'prawn-table'
 
+group :production do
+  gem 'unicorn'
+  gem 'unicorn-worker-killer'
+end
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
