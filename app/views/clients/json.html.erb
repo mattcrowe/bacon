@@ -1,0 +1,90 @@
+<% content_for :crumbs do %>
+    <%= render 'crumbs' %>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= @client.name %> <span class="caret"></span></a>
+      <%= render 'crumb', client: @client %>
+    </li>
+    <li class="pull-right"><%= ibtn_link_to('edit', edit_client_path(@client)) %></li>
+<% end %>
+
+<%= render @client %>
+
+<div style="display: none;" id="client_id" data-client-id="<%= @client.id %>"></div>
+
+<script type="text/x-handlebars">
+  <div style="padding:0 20px 20px 20px;">
+    <div class="well">
+      <div class="btn-group">
+        {{#link-to 'projects' class="btn"}}Projects{{/link-to}}
+        <button type="button" class="btn btn-default">Tasks</button>
+        <a class="btn btn-default" href="#">Entries</a>
+        <a class="btn btn-default" href="#">Invoices</a>
+        <a class="btn btn-default" href="#">Payments</a>
+      </div>
+    </div>
+    {{ outlet }}
+  </div>
+</script>
+
+<script type="text/x-handlebars" id="projects">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Projects</h3>
+    </div>
+    <div class="panel-body">
+      <table class="projects panel">
+        <tbody>
+        {{#each model}}
+        <tr>
+          <td class="project_name">{{name}} {{name}}</td>
+          <td class="action">
+            <div class="dropdown btn-group">
+              <a href="#" class="btn">OPEN</a>
+              <a href="#" class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">111</a></li>
+                <li><a href="#">222</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        {{/each}}
+        </tbody>
+      </table>
+      <div class="">
+        {{outlet}}
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/x-handlebars" id="project">
+  {{#if isEditing}}
+  {{partial 'project/edit'}}
+  <button
+  {{action 'doneEditing'}}>Done</button>
+  {{else}}
+  <button
+  {{action 'edit'}}>Edit</button>
+  {{/if}}
+  <h1>{{title}}</h1>
+
+  <h2>by {{author.name}}
+    <small class='muted'>({{format-date date}})</small>
+  </h2>
+  <hr>
+  <div class='intro'>
+    {{excerpt}}
+  </div>
+  <div class='below-the-fold'>
+    {{body}}
+  </div>
+</script>
+
+<script type="text/x-handlebars" id="project/_edit">
+  <p>{{input type="text" value=title}}</p>
+
+  <p>{{input type="text" value=excerpt}}</p>
+
+  <p>{{textarea value=body}}</p>
+</script>

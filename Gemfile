@@ -2,6 +2,12 @@ source 'https://rubygems.org'
 
 ruby '2.1.0'
 
+# It will use Ember's latest stable version
+gem 'ember-rails'
+
+# We'll use Ember Data's latest beta version
+gem 'ember-data-source', '1.0.0.beta.5'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
 

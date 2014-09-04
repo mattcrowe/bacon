@@ -8,6 +8,11 @@ class ProjectsController < ApplicationController
     end
 
     @projects = project.all
+
+    respond_to do |format|
+      format.html { render action: "index" }
+      format.json { render json: @projects }
+    end
   end
 
   def new

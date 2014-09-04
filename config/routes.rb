@@ -6,7 +6,12 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :clients
+  resources :clients do
+    collection do
+      get ':id/json' => 'clients#json'
+    end
+  end
+
   resources :projects
   resources :tasks
   resources :entries do

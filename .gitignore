@@ -68,6 +68,10 @@ public/assets/**/css
 #unicorn
 unicorn.rb
 
+.rvmrc
+.powenv
+public/assets/*
+
 invoices/
 config/appdata.yml
 config/database.yml

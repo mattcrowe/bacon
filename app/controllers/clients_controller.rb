@@ -29,6 +29,12 @@ class ClientsController < ApplicationController
     @payment = Payment.new
   end
 
+  def json
+    @client = Client.find(params[:id])
+    @project = Project.new
+    @payment = Payment.new
+  end
+
   def edit
     @client = Client.find(params[:id])
   end

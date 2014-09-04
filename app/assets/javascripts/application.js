@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-// require turbolinks
+//require turbolinks
+//= require handlebars
+//= require ember
+//= require ember-data
 //= require_tree .
 //= require bootstrap-sprockets
 
@@ -118,3 +121,55 @@ $(function () {
 
 
 });
+
+Invoicer = Ember.Application.create({});
+
+Invoicer.Router.map(function() {
+
+    this.resource('projects', function() {
+        this.resource('project', { path: ':project_id' });
+    });
+});
+
+Invoicer.ProjectsRoute = Ember.Route.extend({
+
+    model: function() {
+        console.log(document.URL);
+        var clientID = $('#client_id').data('clientId');
+        return $.getJSON('/projects.json?client_id=' + clientID).then(function(data) {
+            return data.projects.map(function (project) {
+                return project;
+            })
+        });
+    }
+});
+
+Invoicer.ProjectRoute = Ember.Route.extend({
+    model: function(params) {
+        return projects.findBy('id', params.project_id);
+    }
+});
+
+Invoicer.ProjectController = Ember.ObjectController.extend({
+    isEditing: false,
+
+    actions: {
+        edit: function() {
+            this.set('isEditing', true);
+        },
+
+        doneEditing: function() {
+            this.set('isEditing', false);
+        }
+    }
+});
+
+//var showdown = new Showdown.converter();
+//
+//Ember.Handlebars.helper('format-markdown', function(input) {
+//    return new Handlebars.SafeString(showdown.makeHtml(input));
+//});
+//
+//Ember.Handlebars.helper('format-date', function(date) {
+//    return moment(date).fromNow();
+//});
