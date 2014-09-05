@@ -2,7 +2,15 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  root 'welcome#index'
+  # root 'welcome#index'
+  root 'ember#index'
+
+  resources :ember
+
+  namespace :api do
+    resources :clients
+    resources :projects
+  end
 
   resources :users
 
@@ -14,17 +22,20 @@ Rails.application.routes.draw do
 
   resources :projects
   resources :tasks
+
   resources :entries do
     collection do
       post 'invoice' => 'entries#invoice'
     end
   end
+
   resources :invoices do
     collection do
       get ':id/compose' => 'invoices#compose'
       post ':id/notify' => 'invoices#notify'
     end
   end
+
   resources :payments
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Cheddar</title>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="ember admin">
+
+<%= yield %>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<!-- Latest compiled and minified JavaScript -->
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+<%= javascript_include_tag "cheddar/application" %>
+</body>
+</html>

@@ -36,4 +36,9 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # ember
+  config.ember.variant = :development
+  config.ember.ember_path = 'lib/assets/javascripts/cheddar'
+  config.handlebars.templates_root = 'cheddar/templates'
 end
