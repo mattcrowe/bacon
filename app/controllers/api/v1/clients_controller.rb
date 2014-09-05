@@ -1,4 +1,4 @@
-class Api::ClientsController < Api::ApiController
+class Api::V1::ClientsController < Api::V1::ApiController
 
   def index
     @clients = Client.order(:name).all
@@ -7,7 +7,7 @@ class Api::ClientsController < Api::ApiController
 
   def show
     @client = Client.find(params[:id])
-    render json: @client, :root => true
+    render json: @client
   end
 
   def client_params
@@ -15,10 +15,13 @@ class Api::ClientsController < Api::ApiController
   end
 
   def update
+
+    sleep 1
+
     @client = Client.find(params[:id])
 
     if @client.update(client_params)
-      render json: @client, :root => true
+      render json: @client
       # render json: 'id'=>@client.id
       # flash[:success] = "success! client has been updated"
       # redirect_to @client

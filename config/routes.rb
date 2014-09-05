@@ -8,8 +8,10 @@ Rails.application.routes.draw do
   resources :ember
 
   namespace :api do
-    resources :clients
-    resources :projects
+    namespace :v1 do
+      resources :clients
+      resources :projects
+    end
   end
 
   resources :users
