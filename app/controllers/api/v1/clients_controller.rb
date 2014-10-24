@@ -1,7 +1,19 @@
 class Api::V1::ClientsController < Api::V1::ApiController
 
-  def index
+  def index0
     @clients = Client.order(:name).all
+    render json: @clients
+  end
+
+  def index
+    client = Client
+
+    if request[:name].present?
+      client = client.where("name LIKE ?", "%#{request[:name]}%")
+    end
+
+    @clients = client.all
+
     render json: @clients
   end
 
@@ -14,6 +26,19 @@ class Api::V1::ClientsController < Api::V1::ApiController
     params.require(:client).permit(:name, :contact, :email, :rate, :address1, :address2, :city, :state, :zip)
   end
 
+  def create
+
+    sleep 1
+
+    @client = Client.new(client_params)
+
+    if @client.save
+      render json: @client
+    else
+      render false
+    end
+  end
+
   def update
 
     sleep 1
@@ -22,13 +47,16 @@ class Api::V1::ClientsController < Api::V1::ApiController
 
     if @client.update(client_params)
       render json: @client
-      # render json: 'id'=>@client.id
-      # flash[:success] = "success! client has been updated"
-      # redirect_to @client
     else
-      # render 'edit'
       render false
     end
+  end
+
+  def destroy
+    @client = Client.find(params[:id])
+    @client.destroy
+
+    render json: {}
   end
 
 end

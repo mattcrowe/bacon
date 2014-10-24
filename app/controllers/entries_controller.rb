@@ -4,7 +4,7 @@ class EntriesController < ApplicationController
 
     @clients = Client.all
 
-    q = Entry.order(:done_at)
+    q = Entry.order("done_at desc")
 
     if request[:client_id].present?
       q = q.joins(task: [{project: :client}])

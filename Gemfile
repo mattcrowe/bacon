@@ -9,6 +9,7 @@ gem 'ember-rails'
 
 # We'll use Ember Data's latest beta version
 gem 'ember-data-source', '1.0.0.beta.5'
+gem 'momentjs-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'

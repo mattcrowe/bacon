@@ -47,6 +47,7 @@
     <div class="col-sm-12">
       <%= form_for [@entry], html: {class: "form-inline get-json"} do |f| %>
           <input type="hidden" name="entry[task_id]" value="<%= @task.id %>"/>
+
           <div class="form-group">
             <%= f.text_field :qty, :placeholder => 'qty' %>
           </div>
@@ -68,7 +69,7 @@
         <th>Done At</th>
         <th></th>
       </tr>
-      <%= render @task.entries %>
+      <%= render @task.entries.sort_by { |e| e.done_at }.reverse %>
     </table>
   </div>
 </div>

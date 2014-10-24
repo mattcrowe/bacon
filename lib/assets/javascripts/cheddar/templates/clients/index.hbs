@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">INDEX!!! Clients</h3>
+    </div>
+    <div class="panel-body">
+        {{#link-to 'clients.new' class="btn"}}<i class="i-add"></i>ADD{{/link-to}}
+        {{input value=searchTerm placeholder="filter"}}
+        <table class="clients panel">
+            <tbody>
+            {{#each client in clients}}
+                <tr>
+                    <td class="client_name">{{client.name}}</td>
+                    <td class="action">{{#link-to 'client' client class="btn"}}<i class="i-open"></i>OPEN{{/link-to}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{{outlet sidebar}}
+{{outlet}}

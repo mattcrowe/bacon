@@ -1,6 +1,6 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">EDIT!!! Client: {{ name }}</h3>
+        <h3 class="panel-title">Add Client</h3>
     </div>
     <div class="panel-body">
 
@@ -8,22 +8,22 @@
 
             <div class="form-group">
                 <label for="client_name">Name</label>
-                {{input value=name}}
+                {{input value=fields.name}}
             </div>
 
             <div class="form-group">
                 <label for="client_contact">Contact</label>
-                {{input value=contact}}
+                {{input value=fields.contact}}
             </div>
 
             <div class="form-group">
                 <label for="client_email">Email</label>
-                {{input value=email}}
+                {{input value=fields.email}}
             </div>
 
             <div class="form-group">
                 <label for="client_rate">Rate</label>
-                {{input value=rate}}
+                {{input value=fields.rate}}
             </div>
 
         </div>
@@ -32,33 +32,32 @@
 
             <div class="form-group">
                 <label for="client_address1">Address1</label>
-                {{input value=address1}}
+                {{input value=fields.address1}}
             </div>
 
             <div class="form-group">
                 <label for="client_address2">Address2</label>
-                {{input value=address2}}
+                {{input value=fields.address2}}
             </div>
 
             <div class="form-group">
                 <label for="client_city">City</label>
-                {{input value=city}}
+                {{input value=fields.city}}
             </div>
 
             <div class="form-group">
                 <label for="client_state">State</label>
-                {{input value=state}}
+                {{input value=fields.state}}
             </div>
 
             <div class="form-group">
                 <label for="client_zip">Zip</label>
-                {{input value=zip}}
+                {{input value=fields.zip}}
             </div>
         </div>
 
         <button class="btn" {{action "cancel"}}><i class="i-cancel"></i> CANCEL</button>
-        <button class="btn" {{action "save"}}><i class="i-save"></i> SAVE</button>
-        <button class="btn" {{action "delete"}}><i class="i-destroy"></i> DELETE</button>
+        <button class="btn" {{action "create"}}><i class="i-save"></i> SAVE</button>
         {{#if isSaving}}<i class="i-saving"></i>{{/if}}
         {{#if showUnsavedMessage}}<i class="i-unsaved"></i>{{/if}}
     </div>

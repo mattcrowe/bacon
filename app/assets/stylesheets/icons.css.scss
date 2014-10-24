@@ -18,4 +18,6 @@ i.i-email { @extend .fa-envelope; }
 i.i-list { @extend .fa-list-ul; }
 i.i-open { @extend .fa-square-o; }
 i.i-save { @extend .fa-pencil-square-o; }
+i.i-saving { @extend .fa-spin; @extend .fa-circle-o-notch; color:green; }
 i.i-show { @extend .fa-square-o; }
+i.i-unsaved { @extend .fa-save; color:red; }

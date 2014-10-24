@@ -1,63 +1,65 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Client: {{ name }}
-            <button {{action "edit" this}}>Edit</button>
-        </h3>
-    </div>
-    <div class="panel-body">
-        <div class="col-sm-6">
-            <ul class="definitions">
-                <li>
-                    <h6>Contact</h6>
-                    <span>{{ contact }}</span>
-                </li>
-                <li>
-                    <h6>Email</h6>
-                    <span>{{ email }}</span>
-                </li>
-                <li>
-                    <h6>Rate</h6>
-                    <span>{{ rate }}</span>
-                </li>
-            </ul>
-        </div>
-        <div class="col-sm-6">
-            <ul class="definitions">
-                <li>
-                    <h6>Address 1</h6>
-                    <span>{{ address1 }}</span>
-                </li>
-                <li>
-                    <h6>Address 2</h6>
-                    <span>{{ address2 }}</span>
-                </li>
-                <li>
-                    <h6>City</h6>
-                    <span>{{ city }}</span>
-                </li>
-                <li>
-                    <h6>State</h6>
-                    <span>{{ state }}</span>
-                </li>
-                <li>
-                    <h6>Zip</h6>
-                    <span>{{ zip }}</span>
-                </li>
-            </ul>
-        </div>
-        <div class="col-sm-6 col-sm-offset-6">
-            <ul class="definitions">
-                <li>
-                    <h6>Created</h6>
-                    <span>{{ created_at }}</span>
-                </li>
-                <li>
-                    <h6>Updated</h6>
-                    <span>{{ updated_at }}</span>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
-
 {{outlet}}
+
+{{#unless isEditing}}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">SHOW!!! Client: {{ name }}</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-6">
+                <ul class="definitions">
+                    <li>
+                        <h6>Contact</h6>
+                        <span>{{ contact }}</span>
+                    </li>
+                    <li>
+                        <h6>Email</h6>
+                        <span>{{ email }}</span>
+                    </li>
+                    <li>
+                        <h6>Rate</h6>
+                        <span>{{ rate }}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <ul class="definitions">
+                    <li>
+                        <h6>Address 1</h6>
+                        <span>{{ address1 }}</span>
+                    </li>
+                    <li>
+                        <h6>Address 2</h6>
+                        <span>{{ address2 }}</span>
+                    </li>
+                    <li>
+                        <h6>City</h6>
+                        <span>{{ city }}</span>
+                    </li>
+                    <li>
+                        <h6>State</h6>
+                        <span>{{ state }}</span>
+                    </li>
+                    <li>
+                        <h6>Zip</h6>
+                        <span>{{ zip }}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-6 col-sm-offset-6">
+                <ul class="definitions">
+                    <li>
+                        <h6>Created</h6>
+                        <span>{{date created_at}}</span>
+                    </li>
+                    <li>
+                        <h6>Updated</h6>
+                        <span>{{date updated_at}}</span>
+                    </li>
+                </ul>
+            </div>
+            {{#link-to 'client.edit' model class="btn"}}<i class="i-edit"></i>EDIT{{/link-to}}
+        </div>
+    </div>
+{{/unless}}
