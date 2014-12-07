@@ -24,7 +24,7 @@
         </li>
         <li>
           <h6>Paid</h6>
-          <span><%= @payment.paid_at ? 'Yes' : 'No' %></span>
+          <span><%= @payment.paid_at ? @payment.paid_at : 'No' %></span>
         </li>
       </ul>
     </div>

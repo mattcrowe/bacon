@@ -38,5 +38,19 @@
         </tr>
     <% end %>
 
+    <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><%= number_to_currency(@invoiced) %></td>
+      <td><%= number_to_currency(@paid) %></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tfoot>
+
   </table>
 </div>

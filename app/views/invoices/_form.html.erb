@@ -30,12 +30,12 @@
 
     <div class="form-group">
       <%= f.label :starts_at %>
-      <%= date_field_tag('invoice[starts_at]', 1.month.ago.strftime('%Y-%m-%d')) %>
+      <%= date_field_tag('invoice[starts_at]', @invoice.starts_at ? @invoice.starts_at : 1.month.ago.strftime('%Y-%m-%d')) %>
     </div>
 
     <div class="form-group">
       <%= f.label :ends_at %>
-      <%= date_field_tag('invoice[ends_at]', Time.now.strftime('%Y-%m-%d')) %>
+      <%= date_field_tag('invoice[ends_at]', @invoice.ends_at ? @invoice.ends_at : Time.now.strftime('%Y-%m-%d')) %>
     </div>
 
 <% end %>

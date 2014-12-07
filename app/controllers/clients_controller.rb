@@ -2,6 +2,14 @@ class ClientsController < ApplicationController
 
   def index
     @clients = Client.order(:name).all
+
+    # sum qty and rate*qty
+    @invoiced = 0
+    @paid = 0
+    @clients.each do |client|
+      @invoiced += client.invoiced
+      @paid += client.paid
+    end
   end
 
   def new

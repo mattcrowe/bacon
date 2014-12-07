@@ -68,6 +68,17 @@
           <th></th>
         </tr>
         <%= render @invoice.entries %>
+        <tfoot>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><%= @qty %></td>
+          <td><%= number_to_currency(@total) %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        </tfoot>
       </table>
     </div>
   </div>

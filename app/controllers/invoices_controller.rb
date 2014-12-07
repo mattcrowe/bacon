@@ -43,6 +43,13 @@ class InvoicesController < ApplicationController
 
   def show
     @invoice = Invoice.find(params[:id])
+    # sum qty and rate*qty
+    @qty = 0
+    @total = 0
+    @invoice.entries.each do |entry|
+      @qty += entry.qty
+      @total += entry.qty * entry.rate
+    end
   end
 
   def edit

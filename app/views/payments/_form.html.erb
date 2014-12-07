@@ -24,7 +24,7 @@
 
     <div class="form-group">
       <%= f.label :paid_at %>
-      <%= date_field_tag('payment[paid_at]', Time.now.strftime('%Y-%m-%d')) %>
+      <%= date_field_tag('payment[paid_at]', @payment.paid_at ? @payment.paid_at : Time.now.strftime('%Y-%m-%d')) %>
     </div>
 
 <% end %>
